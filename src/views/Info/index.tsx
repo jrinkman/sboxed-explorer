@@ -32,6 +32,10 @@ interface RootProps {
   background: string;
 }
 
+interface InfoLinkProps {
+  paddingTop?: boolean;
+}
+
 const Root = styled.div`
   display: flex;
   flex-direction: column;
@@ -73,7 +77,7 @@ const Subheader = styled.span`
   font-weight: 400;
   font-size: 1.5rem;
   max-width: 600px;
-  margin-top: 16px;
+  margin-top: 24px;
 `;
 
 const Description = styled.span`
@@ -90,6 +94,20 @@ const Date = styled.span`
   opacity: 0.4;
   font-weight: 500;
   font-size: 1.1rem;
+  margin-top: 6px;
+`;
+
+const InfoLink = styled.a<InfoLinkProps>`
+  color: #00A2FF;
+  opacity: 1;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-top: ${(props) => (props.paddingTop ? '24px' : '6px')};
+  transition: opacity 100ms ease-out;
+  text-decoration: none;
+  &:hover {
+    opacity: 0.6;
+  }
 `;
 
 const Button = styled.button`
@@ -161,7 +179,7 @@ function Info() {
       <Background background={gamemode.asset.background} />
       <Root>
         <Header>
-          <img className="logo" src={gamemode.asset.org.thumb} alt="org thumbnail" />
+          <img className="logo" src={gamemode.asset.org.thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
           <h1>{gamemode.asset.title}</h1>
         </Header>
         <Date>
@@ -169,6 +187,8 @@ function Info() {
           {' '} Updated {dateString} (Pkg Type {gamemode.asset.packageType})
         </Date>
         <Subheader>{gamemode.asset.summary}</Subheader>
+        <InfoLink href={gamemode.asset.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
+        <InfoLink href={gamemode.asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
         <Description>{gamemode.asset.description}</Description>
         <div>
           <Button

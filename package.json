@@ -23,6 +23,7 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
+    "@types/react-router-transition": "^2.1.0",
     "@types/styled-components": "^5.1.9",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",

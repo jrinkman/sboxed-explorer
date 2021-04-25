@@ -31,19 +31,19 @@ const Header = styled.header`
   }
 `;
 
+const Main = styled.main`
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+`;
+
 const HeaderLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   text-decoration: none;
-`;
-
-const Main = styled.main`
-  display: flex;
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: auto;
 `;
 
 function App() {
