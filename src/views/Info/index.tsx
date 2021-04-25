@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import { DateTime } from 'luxon';
 import axios from 'axios';
 import styled from 'styled-components';
 import Loader from '../../base/Loader';
@@ -50,10 +51,20 @@ const Background = styled.div<RootProps>`
   opacity: 0.1;
 `;
 
-const Header = styled.h1`
-  color: white;
-  font-size: 2.5rem;
-  margin: 0;
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  & h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin: 0;
+  }
+  & .logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 50%;
+  }
 `;
 
 const Subheader = styled.span`
@@ -61,15 +72,54 @@ const Subheader = styled.span`
   opacity: 0.6;
   font-weight: 400;
   font-size: 1.5rem;
+  max-width: 600px;
+  margin-top: 16px;
 `;
 
 const Description = styled.span`
   color: white;
-  opacity: 0.8;
+  opacity: 0.9;
   font-size: 1rem;
   margin-top: 55px;
-  width: 50%;
+  margin-bottom: 35px;
+  width: 75%;
 `;
+
+const Date = styled.span`
+  color: white;
+  opacity: 0.4;
+  font-weight: 500;
+  font-size: 1.1rem;
+`;
+
+const Button = styled.button`
+  color: white;
+  font-weight: 700;
+  padding: 12px 24px 12px 24px;
+  border: 0;
+  border-radius: 12px;
+  background-color: #00A2FF;
+  font-family: "Poppins", sans-serif;
+  transition: background-color 100ms ease-out;
+  text-transform: uppercase;
+  &:hover {
+    cursor: pointer;
+    background-color: #2b5797;
+  }
+`;
+
+// const Chip = styled.div`
+//   color: white;
+//   padding: 6px 8px 6px 8px;
+//   border-radius: 16px;
+//   font-weight: 700;
+//   font-size: 1rem;
+//   background-color: rgba(0,0,0,0.4);
+//   backdrop-filter: blur(10px);
+//   cursor: default;
+//   user-select: none;
+//   margin-right: 10px;
+// `;
 
 interface InfoRouteParams {
   id: string;
@@ -79,6 +129,7 @@ function Info() {
   const [gamemode, setGamemode] = useState<GamemodeInfo | null>(null);
   const [menuError, setMenuError] = useState<Error | null>(null);
   const { id } = useParams<InfoRouteParams>();
+  const history = useHistory();
 
   useEffect(() => {
     async function getMenuData(): Promise<void> {
@@ -98,13 +149,36 @@ function Info() {
   }
   if (!gamemode) return <Loader paddingBottom />;
 
+  // Format the date number to a string
+  const dateString = DateTime.fromMillis(gamemode.asset.updated * 1000).toFormat('d LLL h:mm a');
+
+  const handleBackClick = () => {
+    history.push('/');
+  };
+
   return (
     <>
       <Background background={gamemode.asset.background} />
       <Root>
-        <Header>{gamemode.asset.title}</Header>
+        <Header>
+          <img className="logo" src={gamemode.asset.org.thumb} alt="org thumbnail" />
+          <h1>{gamemode.asset.title}</h1>
+        </Header>
+        <Date>
+          By {gamemode.asset.org.title},
+          {' '} Updated {dateString} (Pkg Type {gamemode.asset.packageType})
+        </Date>
         <Subheader>{gamemode.asset.summary}</Subheader>
         <Description>{gamemode.asset.description}</Description>
+        <div>
+          <Button
+            style={{ marginRight: 10 }}
+            onClick={() => window.open(gamemode.asset.downloadUrl)}
+          >
+            Download
+          </Button>
+          <Button onClick={handleBackClick}>Go Back</Button>
+        </div>
       </Root>
     </>
   );

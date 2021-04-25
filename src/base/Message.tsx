@@ -17,6 +17,7 @@ const Root = styled.div<RootProps>`
   flex-grow: 1;
   align-items: center;
   justify-content: center;
+  text-align: center;
   padding-bottom: ${(props) => (props.paddingBottom ? '98px' : '0px')};
 `;
 
