@@ -1,20 +1,74 @@
 import React from 'react';
 import styled from 'styled-components';
+import { DateTime } from 'luxon';
 import { GamemodePackage } from '../index';
 
 interface CardProps {
   thumbnail: string;
 }
 
-const Card = styled.div<CardProps>`
+const Root = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 12px 12px 36px 12px;
+  border-radius: 16px;
+  transition: opacity 100ms ease-out;
+  &:hover {
+    opacity: 0.4;
+    cursor: pointer;
+  }
+`;
+
+const Image = styled.div<CardProps>`
+  display: flex;
+  align-items: flex-end;
   padding: 16px;
-  background-color: grey;
+  margin-bottom: 16px;
   background-image: url("${(props) => props.thumbnail}");
   background-size: cover;
-  border-radius: 16px;
-  width: 250px;
-  height: 250px;
+  background-color: rgb(33, 43, 54);
   box-shadow: 5px 5px 30px rgb(0 0 0 / 40%);
+  border-radius: 16px;
+  width: 275px;
+  height: 275px;
+`;
+
+const Chip = styled.div`
+  color: white;
+  padding: 6px 8px 6px 8px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  background-color: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  cursor: default;
+  user-select: none;
+`;
+
+const Title = styled.span`
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  width: 275px;
+`;
+
+const Date = styled.span`
+  color: white;
+  opacity: 0.4;
+  font-weight: 500;
+  font-size: 0.75rem;
+  width: 275px;
+`;
+
+const Summary = styled.span`
+  color: white;
+  opacity: 0.6;
+  font-size: 0.75rem;
+  width: 275px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 4px;
 `;
 
 interface Props {
@@ -23,10 +77,16 @@ interface Props {
 
 function MenuCard(props: Props) {
   const { gamemode } = props;
+  const dateString = DateTime.fromMillis(gamemode.updated * 1000).toFormat('dd/MM/yyyy');
   return (
-    <Card thumbnail={gamemode.thumb}>
-      hello world
-    </Card>
+    <Root>
+      <Image thumbnail={gamemode.thumb}>
+        <Chip>{gamemode.org.title}</Chip>
+      </Image>
+      <Title>{gamemode.title}</Title>
+      <Date>Updated {dateString} - Pkg Type {gamemode.packageType}</Date>
+      <Summary>{gamemode.summary}</Summary>
+    </Root>
   );
 }
 
