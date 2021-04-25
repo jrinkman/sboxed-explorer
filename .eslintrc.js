@@ -23,8 +23,10 @@ module.exports = {
     'no-console': 'off',
     'no-use-before-define': 'off',
     'operator-linebreak': 'off',
+    'linebreak-style': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
+    'react/jsx-one-expression-per-line': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',

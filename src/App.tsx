@@ -1,34 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import Home from './views/Home';
 
 function App() {
-  const [menuData, setMenuData] = useState(null);
-  const [menuError, setMenuError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    async function getMenuData() {
-      try {
-        setMenuData((await axios.get('/menu/index')).data);
-      } catch (error) {
-        console.error(error);
-        setMenuError(error);
-      }
-    }
-
-    getMenuData();
-  }, []);
-
-  if (menuError) {
-    return (
+  return (
+    <Router>
       <div>
-        An error occured.
-        {JSON.stringify(menuError)}
+        header tingz
       </div>
-    );
-  }
-  if (!menuData) return <div>loading...</div>;
-
-  return <div>{JSON.stringify(menuData)}</div>;
+      <Switch>
+        <Route path="/test">
+          <div>Test route</div>
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;
