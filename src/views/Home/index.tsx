@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import MenuCard from './components/Card';
 import Loader from '../../base/Loader';
+import Message from '../../base/Message';
 
 interface MenuItem {
   title: string;
@@ -27,6 +28,8 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  padding-left: 40px;
+  padding-right: 40px;
 `;
 
 const Section = styled.section`
@@ -74,12 +77,7 @@ function Home() {
   }, []);
 
   if (menuError) {
-    return (
-      <div>
-        An error occured.
-        {JSON.stringify(menuError)}
-      </div>
-    );
+    return <Message title="An error occured" subtitle="Check the console for more details." paddingBottom />;
   }
   if (!menuItems) return <Loader paddingBottom />;
 

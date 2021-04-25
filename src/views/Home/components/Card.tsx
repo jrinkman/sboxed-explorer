@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import { GamemodePackage } from '../index';
 
@@ -76,10 +77,16 @@ interface Props {
 }
 
 function MenuCard(props: Props) {
+  const history = useHistory();
   const { gamemode } = props;
   const dateString = DateTime.fromMillis(gamemode.updated * 1000).toFormat('dd/MM/yyyy');
+
+  const handleClick = () => {
+    history.push(`/info/${gamemode.org.ident}.${gamemode.ident}`);
+  };
+
   return (
-    <Root>
+    <Root onClick={handleClick}>
       <Image thumbnail={gamemode.thumb}>
         <Chip>{gamemode.org.title}</Chip>
       </Image>

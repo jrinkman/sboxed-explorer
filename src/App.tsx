@@ -2,10 +2,12 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
+  Link,
   Route,
 } from 'react-router-dom';
 import styled from 'styled-components';
 import Home from './views/Home';
+import Info from './views/Info';
 
 const Header = styled.header`
   display: flex;
@@ -25,9 +27,16 @@ const Header = styled.header`
     font-weight: 700;
     margin-left: 10px;
     text-transform: uppercase;
-    cursor: default;
     user-select: none;
   }
+`;
+
+const HeaderLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
 `;
 
 const Main = styled.main`
@@ -35,21 +44,21 @@ const Main = styled.main`
   flex: 1 1 auto;
   min-height: 0;
   overflow: auto;
-  padding-left: 40px;
-  padding-right: 40px;
 `;
 
 function App() {
   return (
     <Router>
       <Header>
-        <img className="logo-image" src="/logo192.png" alt="logo" />
-        <span className="logo-text">api explorer</span>
+        <HeaderLink to="/">
+          <img className="logo-image" src="/logo192.png" alt="logo" />
+          <span className="logo-text">api explorer</span>
+        </HeaderLink>
       </Header>
       <Main>
         <Switch>
-          <Route path="/test">
-            <div>Test route</div>
+          <Route path="/info/:id">
+            <Info />
           </Route>
           <Route path="/">
             <Home />

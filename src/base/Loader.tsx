@@ -46,7 +46,7 @@ const RippleLoader = styled.div`
   }
 `;
 
-function Loader(props: Props) {
+function Message(props: Props) {
   const { paddingBottom } = props;
 
   return (
@@ -59,4 +59,4 @@ function Loader(props: Props) {
   );
 }
 
-export default Loader;
+export default Message;
