@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import pkgTypeString from 'helpers/pkgTypeString';
+import missingAssetThumb from './AssetCardMissing.png';
 
 interface Asset {
   org: {
@@ -101,7 +102,7 @@ function MenuCard(props: Props) {
 
   return (
     <Root onClick={handleClick}>
-      <Image thumbnail={asset.thumb}>
+      <Image thumbnail={asset.thumb || missingAssetThumb}>
         <Chip>{asset.org.title}</Chip>
       </Image>
       <Title>{asset.title}</Title>
