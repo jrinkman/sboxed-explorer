@@ -15,32 +15,18 @@ app.get('/', async (req, res) => {
   res.sendStatus(200);
 });
 
-app.get('/menu', async (req, res) => {
+const sboxApi = async (endpoint, res) => {
   try {
-    res.json((await axios.get('/menu/index')).data);
+    res.json((await axios.get(endpoint)).data);
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
   }
-});
+};
 
-app.get('/asset/get/:id', async (req, res) => {
-  try {
-    res.json((await axios.get(`/asset/get?id=${req.params.id}`)).data);
-  } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
-  }
-});
-
-app.get('/asset/find/:type', async (req, res) => {
-  try {
-    res.json((await axios.get(`/asset/find?type=${req.params.type}`)).data);
-  } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
-  }
-});
+app.get('/menu', (req, res) => sboxApi('/menu/index', res));
+app.get('/asset/get/:id', (req, res) => sboxApi(`/asset/get?id=${req.params.id}`, res));
+app.get('/asset/find/:type', (req, res) => sboxApi(`/asset/find?type=${req.params.type}`, res));
 
 // Expose Express API as a single Cloud Function:
 exports.proxy = functions.https.onRequest(app);
