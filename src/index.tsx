@@ -6,8 +6,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // Set the base URL to the proxied S&box API URL
+(window as any).axios = axios;
 axios.defaults.baseURL =
-  'https://thingproxy.freeboard.io/fetch/https://apix.facepunch.com/api/sbox';
+  'http://localhost:5001/sbox-api-explorer/us-central1/proxy';
 
 ReactDOM.render(
   <React.StrictMode>

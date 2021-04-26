@@ -152,7 +152,7 @@ function Info() {
   useEffect(() => {
     async function getMenuData(): Promise<void> {
       try {
-        setGamemode((await axios.get(`/asset/get?id=${id}`)).data as GamemodeInfo);
+        setGamemode((await axios.get(`/asset/${id}`)).data as GamemodeInfo);
       } catch (error) {
         console.error(error);
         setMenuError(error);

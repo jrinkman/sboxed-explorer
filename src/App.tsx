@@ -11,11 +11,11 @@ import Info from './views/Info';
 
 const Header = styled.header`
   display: flex;
-  width: 100%;
-  justify-content: center;
+  flex-grow: 1;
+  max-height: 50px;
+  justify-content: space-between;
   align-items: center;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding: 24px 40px 24px 40px;
   .logo-image {
     width: 50px;
     height: 50px;
@@ -38,6 +38,15 @@ const Main = styled.main`
   overflow: auto;
 `;
 
+const Credit = styled.span`
+  color: white;
+  opacity: 0.7;
+  letter-spacing: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+  user-select: none;
+`;
+
 const HeaderLink = styled(Link)`
   display: flex;
   justify-content: center;
@@ -54,6 +63,7 @@ function App() {
           <img className="logo-image" src="/logo192.png" alt="logo" />
           <span className="logo-text">api explorer</span>
         </HeaderLink>
+        <Credit>BY ASTROJAXX</Credit>
       </Header>
       <Main>
         <Switch>

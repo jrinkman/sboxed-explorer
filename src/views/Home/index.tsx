@@ -66,7 +66,7 @@ function Home() {
   useEffect(() => {
     async function getMenuData(): Promise<void> {
       try {
-        setMenuItems((await axios.get('/menu/index')).data as MenuItem[]);
+        setMenuItems((await axios.get('/menu')).data as MenuItem[]);
       } catch (error) {
         console.error(error);
         setMenuError(error);
