@@ -3,11 +3,16 @@ import {
   BrowserRouter as Router,
   Switch,
   Link,
+  NavLink,
   Route,
+  Redirect,
 } from 'react-router-dom';
 import styled from 'styled-components';
-import Home from './views/Home';
-import Info from './views/Info';
+
+// Views
+import Home from 'views/Home';
+import Assets from 'views/Assets';
+import AssetInfo from 'views/AssetInfo';
 
 const Header = styled.header`
   display: flex;
@@ -29,6 +34,13 @@ const Header = styled.header`
     text-transform: uppercase;
     user-select: none;
   }
+  .logo-text .version {
+    opacity: 0.6;
+  }
+`;
+
+const HeaderNav = styled.div`
+  display: flex;
 `;
 
 const Main = styled.main`
@@ -38,16 +50,40 @@ const Main = styled.main`
   overflow: auto;
 `;
 
-const Credit = styled.span`
+// const Credit = styled.span`
+//   color: white;
+//   opacity: 0.7;
+//   letter-spacing: 3px;
+//   font-weight: 700;
+//   text-transform: uppercase;
+//   user-select: none;
+// `;
+
+const HeaderNavLink = styled(NavLink)`
+  height: 100%;
   color: white;
-  opacity: 0.7;
   letter-spacing: 3px;
   font-weight: 700;
   text-transform: uppercase;
+  text-decoration: none;
   user-select: none;
+  transition: opacity 100ms ease-out;
+  opacity: 0.6;
+  &.active {
+    opacity: 1;
+  }
+  &:not(last-child) {
+    margin-right: 12px;
+  }
+  &:hover {
+    opacity: 1;
+    &.active {
+      opacity: 0.6;
+    }
+  }
 `;
 
-const HeaderLink = styled(Link)`
+const HeaderLogoLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,20 +95,34 @@ function App() {
   return (
     <Router>
       <Header>
-        <HeaderLink to="/">
+        <HeaderLogoLink to="/">
           <img className="logo-image" src="/logo192.png" alt="logo" />
-          <span className="logo-text">api explorer</span>
-        </HeaderLink>
-        <Credit>BY ASTROJAXX</Credit>
+          <span className="logo-text">api explorer <span className="version">v1.1</span></span>
+        </HeaderLogoLink>
+        <HeaderNav>
+          <HeaderNavLink to="/" exact activeClassName="active">
+            home
+          </HeaderNavLink>
+          <HeaderNavLink to="/assets/gamemode" activeClassName="active">
+            gamemodes
+          </HeaderNavLink>
+          <HeaderNavLink to="/assets/map" activeClassName="active">
+            maps
+          </HeaderNavLink>
+        </HeaderNav>
       </Header>
       <Main>
         <Switch>
-          <Route path="/info/:id">
-            <Info />
+          <Route path="/assets/:type/:id">
+            <AssetInfo />
+          </Route>
+          <Route path="/assets/:type">
+            <Assets />
           </Route>
           <Route path="/">
             <Home />
           </Route>
+          <Redirect to="/" />
         </Switch>
       </Main>
     </Router>

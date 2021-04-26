@@ -2,10 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
-import { GamemodePackage } from '../index';
+import pkgTypeString from 'helpers/pkgTypeString';
 
-interface CardProps {
-  thumbnail: string;
+interface Asset {
+  org: {
+    ident: string;
+    title: string;
+  };
+  ident: string;
+  title: string;
+  summary: string;
+  thumb: string;
+  packageType: number;
+  updated: number;
 }
 
 const Root = styled.div`
@@ -19,6 +28,10 @@ const Root = styled.div`
     cursor: pointer;
   }
 `;
+
+interface CardProps {
+  thumbnail: string;
+}
 
 const Image = styled.div<CardProps>`
   display: flex;
@@ -73,28 +86,30 @@ const Summary = styled.span`
 `;
 
 interface Props {
-  gamemode: GamemodePackage;
+  asset: Asset;
 }
 
 function MenuCard(props: Props) {
   const history = useHistory();
-  const { gamemode } = props;
-  const dateString = DateTime.fromMillis(gamemode.updated * 1000).toFormat('dd/MM/yyyy');
+  const { asset } = props;
+  const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('dd/MM/yyyy');
+  const pkgString = pkgTypeString(asset.packageType);
 
   const handleClick = () => {
-    history.push(`/info/${gamemode.org.ident}.${gamemode.ident}`);
+    history.push(`/assets/${pkgString.toLowerCase()}/${asset.org.ident}.${asset.ident}`);
   };
 
   return (
     <Root onClick={handleClick}>
-      <Image thumbnail={gamemode.thumb}>
-        <Chip>{gamemode.org.title}</Chip>
+      <Image thumbnail={asset.thumb}>
+        <Chip>{asset.org.title}</Chip>
       </Image>
-      <Title>{gamemode.title}</Title>
-      <Date>Updated {dateString} - Pkg Type {gamemode.packageType}</Date>
-      <Summary>{gamemode.summary}</Summary>
+      <Title>{asset.title}</Title>
+      <Date>Updated {dateString} - {pkgString}</Date>
+      <Summary>{asset.summary}</Summary>
     </Root>
   );
 }
 
 export default MenuCard;
+export type { Asset };

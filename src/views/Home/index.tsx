@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import MenuCard from './components/Card';
-import Loader from '../../base/Loader';
-import Message from '../../base/Message';
+import AssetCard from 'components/AssetCard';
+import Loader from '../../components/Loader';
+import Message from '../../components/Message';
 
 interface MenuItem {
   title: string;
@@ -59,7 +59,7 @@ const Subheader = styled.span`
   font-size: 1rem;
 `;
 
-function Home() {
+function Gamemodes() {
   const [menuItems, setMenuItems] = useState<MenuItem[] | null>(null);
   const [menuError, setMenuError] = useState<Error | null>(null);
 
@@ -84,13 +84,13 @@ function Home() {
   return (
     <Root>
       {menuItems.map((menuItem) => (
-        <Section>
+        <Section key={menuItem.title}>
           <div className="header">
             <Header>{menuItem.title}</Header>
             <Subheader>{menuItem.description}</Subheader>
           </div>
           <div className="packages">
-            {menuItem.packages.map((gamemode) => <MenuCard gamemode={gamemode} />)}
+            {menuItem.packages.map((asset) => <AssetCard key={asset.ident} asset={asset} />)}
           </div>
         </Section>
       ))}
@@ -98,5 +98,5 @@ function Home() {
   );
 }
 
-export default Home;
+export default Gamemodes;
 export type { GamemodePackage };

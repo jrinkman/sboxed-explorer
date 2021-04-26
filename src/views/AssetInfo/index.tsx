@@ -3,29 +3,28 @@ import { useParams, useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import axios from 'axios';
 import styled from 'styled-components';
-import Loader from '../../base/Loader';
-import Message from '../../base/Message';
+import Loader from 'components/Loader';
+import Message from 'components/Message';
+import pkgTypeString from 'helpers/pkgTypeString';
 
-interface GamemodeInfo {
-  asset: {
-    org: {
-      ident: string;
-      title: string;
-      description: string;
-      thumb: string;
-      socialTwitter: string;
-      socialWeb: string;
-    },
+interface AssetInfo {
+  org: {
     ident: string;
     title: string;
-    summary: string;
     description: string;
     thumb: string;
-    background: string;
-    packageType: number;
-    downloadUrl: string;
-    updated: number;
-  }
+    socialTwitter: string;
+    socialWeb: string;
+  },
+  ident: string;
+  title: string;
+  summary: string;
+  description: string;
+  thumb: string;
+  background: string;
+  packageType: number;
+  downloadUrl: string;
+  updated: number;
 }
 
 interface RootProps {
@@ -126,74 +125,75 @@ const Button = styled.button`
   }
 `;
 
-// const Chip = styled.div`
-//   color: white;
-//   padding: 6px 8px 6px 8px;
-//   border-radius: 16px;
-//   font-weight: 700;
-//   font-size: 1rem;
-//   background-color: rgba(0,0,0,0.4);
-//   backdrop-filter: blur(10px);
-//   cursor: default;
-//   user-select: none;
-//   margin-right: 10px;
-// `;
+const Chip = styled.div`
+  color: white;
+  padding: 6px 8px 6px 8px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  background-color: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  cursor: default;
+  user-select: none;
+  margin-left: 10px;
+`;
 
 interface InfoRouteParams {
   id: string;
 }
 
 function Info() {
-  const [gamemode, setGamemode] = useState<GamemodeInfo | null>(null);
-  const [menuError, setMenuError] = useState<Error | null>(null);
+  const [assetInfo, setAssetInfo] = useState<AssetInfo | null>(null);
+  const [assetInfoError, setAssetInfoError] = useState<Error | null>(null);
   const { id } = useParams<InfoRouteParams>();
   const history = useHistory();
 
   useEffect(() => {
     async function getMenuData(): Promise<void> {
       try {
-        setGamemode((await axios.get(`/asset/${id}`)).data as GamemodeInfo);
+        setAssetInfo((await axios.get(`/asset/get/${id}`)).data.asset as AssetInfo);
       } catch (error) {
         console.error(error);
-        setMenuError(error);
+        setAssetInfoError(error);
       }
     }
 
     getMenuData();
   }, []);
 
-  if (menuError) {
-    return <Message title="An error occured" subtitle="Looks like we couldn't find that gamemode." paddingBottom />;
+  if (assetInfoError) {
+    return <Message title="An error occured" subtitle="Looks like we couldn't find anything." paddingBottom />;
   }
-  if (!gamemode) return <Loader paddingBottom />;
+  if (!assetInfo) return <Loader paddingBottom />;
 
   // Format the date number to a string
-  const dateString = DateTime.fromMillis(gamemode.asset.updated * 1000).toFormat('d LLL h:mm a');
+  const dateString = DateTime.fromMillis(assetInfo.updated * 1000).toFormat('d LLL h:mm a');
 
   const handleBackClick = () => {
-    history.push('/');
+    history.goBack();
   };
 
   return (
     <>
-      <Background background={gamemode.asset.background} />
+      <Background background={assetInfo.background} />
       <Root>
         <Header>
-          <img className="logo" src={gamemode.asset.org.thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
-          <h1>{gamemode.asset.title}</h1>
+          <img className="logo" src={assetInfo.org.thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
+          <h1>{assetInfo.title}</h1>
+          <Chip>{pkgTypeString(assetInfo.packageType)}</Chip>
         </Header>
         <Date>
-          By {gamemode.asset.org.title},
-          {' '} Updated {dateString} (Pkg Type {gamemode.asset.packageType})
+          By {assetInfo.org.title},
+          {' '} Updated {dateString}
         </Date>
-        <Subheader>{gamemode.asset.summary}</Subheader>
-        <InfoLink href={gamemode.asset.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
-        <InfoLink href={gamemode.asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
-        <Description>{gamemode.asset.description}</Description>
+        <Subheader>{assetInfo.summary}</Subheader>
+        <InfoLink href={assetInfo.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
+        <InfoLink href={assetInfo.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
+        <Description>{assetInfo.description}</Description>
         <div>
           <Button
             style={{ marginRight: 10 }}
-            onClick={() => window.open(gamemode.asset.downloadUrl)}
+            onClick={() => window.open(assetInfo.downloadUrl)}
           >
             Download
           </Button>
