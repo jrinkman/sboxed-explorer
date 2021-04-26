@@ -105,7 +105,7 @@ function MenuCard(props: Props) {
         <Chip>{asset.org.title}</Chip>
       </Image>
       <Title>{asset.title}</Title>
-      <Date>Updated {dateString} - {pkgString}</Date>
+      <Date>{pkgString} - Updated {dateString}</Date>
       <Summary>{asset.summary}</Summary>
     </Root>
   );
