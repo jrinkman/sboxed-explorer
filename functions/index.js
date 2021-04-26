@@ -9,7 +9,7 @@ axios.defaults.baseURL =
   'https://apix.facepunch.com/api/sbox';
 
 // Automatically allow cross-origin requests
-app.use(cors({ origin: ['https://sbox-api-explorer.web.app/', 'https://localhost:5001'] }));
+app.use(cors({ origin: ['https://sbox-api-explorer.web.app', 'https://localhost:3000'] }));
 
 app.get('/', async (req, res) => {
   res.sendStatus(200);

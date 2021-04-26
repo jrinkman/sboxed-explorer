@@ -7,8 +7,13 @@ import reportWebVitals from './reportWebVitals';
 
 // Set the base URL to the proxied S&box API URL
 (window as any).axios = axios;
-axios.defaults.baseURL =
-  'http://localhost:5001/sbox-api-explorer/us-central1/proxy';
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  axios.defaults.baseURL =
+    'http://localhost:5001/sbox-api-explorer/us-central1/proxy';
+} else {
+  axios.defaults.baseURL =
+  'https://us-central1-sbox-api-explorer.cloudfunctions.net/proxy';
+}
 
 ReactDOM.render(
   <React.StrictMode>
