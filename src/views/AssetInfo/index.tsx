@@ -138,6 +138,11 @@ const Chip = styled.div`
   margin-left: 10px;
 `;
 
+const Actions = styled.div`
+  display: flex;
+  padding-bottom: 40px;
+`;
+
 interface InfoRouteParams {
   id: string;
 }
@@ -190,7 +195,7 @@ function Info() {
         <InfoLink href={assetInfo.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
         <InfoLink href={assetInfo.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
         <Description>{assetInfo.description}</Description>
-        <div>
+        <Actions>
           <Button
             style={{ marginRight: 10 }}
             onClick={() => window.open(assetInfo.downloadUrl)}
@@ -198,7 +203,7 @@ function Info() {
             Download
           </Button>
           <Button onClick={handleBackClick}>Go Back</Button>
-        </div>
+        </Actions>
       </Root>
     </>
   );

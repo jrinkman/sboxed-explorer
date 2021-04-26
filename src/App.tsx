@@ -11,6 +11,7 @@ import styled from 'styled-components';
 
 // Views
 import Home from 'views/Home';
+import Changelog from 'views/Changelog';
 import Assets from 'views/Assets';
 import AssetInfo from 'views/AssetInfo';
 
@@ -97,7 +98,7 @@ function App() {
       <Header>
         <HeaderLogoLink to="/">
           <img className="logo-image" src="/logo192.png" alt="logo" />
-          <span className="logo-text">api explorer <span className="version">v1.1</span></span>
+          <span className="logo-text">api explorer <span className="version">v1.2</span></span>
         </HeaderLogoLink>
         <HeaderNav>
           <HeaderNavLink to="/" exact activeClassName="active">
@@ -109,6 +110,9 @@ function App() {
           <HeaderNavLink to="/assets/map" activeClassName="active">
             maps
           </HeaderNavLink>
+          <HeaderNavLink to="/changelog" activeClassName="active">
+            changes
+          </HeaderNavLink>
         </HeaderNav>
       </Header>
       <Main>
@@ -118,6 +122,9 @@ function App() {
           </Route>
           <Route path="/assets/:type">
             <Assets />
+          </Route>
+          <Route path="/changelog">
+            <Changelog />
           </Route>
           <Route path="/">
             <Home />

@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import AssetCard from 'components/AssetCard';
+import AssetCard, { Asset } from 'components/AssetCard';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
 
 interface MenuItem {
   title: string;
   description: string;
-  packages: GamemodePackage[];
-}
-
-interface GamemodePackage {
-  org: {
-    ident: string;
-    title: string;
-  };
-  ident: string;
-  title: string;
-  summary: string;
-  thumb: string;
-  packageType: number;
-  updated: number;
+  packages: Asset[];
 }
 
 const Root = styled.div`
@@ -99,4 +86,3 @@ function Gamemodes() {
 }
 
 export default Gamemodes;
-export type { GamemodePackage };
