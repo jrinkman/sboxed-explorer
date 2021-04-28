@@ -125,6 +125,11 @@ const Button = styled.button`
     cursor: pointer;
     background-color: #2b5797;
   }
+  &:disabled {
+    cursor: default;
+    background-color: #00A2FF;
+    opacity: 0.4;
+  }
 `;
 
 const Chip = styled.div`
