@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import firebase from 'firebase/app';
-import 'firebase/analytics';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -29,7 +28,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 
 // Render the dom
 ReactDOM.render(
