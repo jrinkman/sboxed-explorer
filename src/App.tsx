@@ -22,22 +22,6 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 24px 40px 24px 40px;
-  .logo-image {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-  }
-  .logo-text {
-    color: white;
-    letter-spacing: 3px;
-    font-weight: 700;
-    margin-left: 10px;
-    text-transform: uppercase;
-    user-select: none;
-  }
-  .logo-text .version {
-    opacity: 0.6;
-  }
 `;
 
 const HeaderNav = styled.div`
@@ -81,22 +65,51 @@ const HeaderNavLink = styled(NavLink)`
   }
 `;
 
+const HeaderLogo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const HeaderLogoImage = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+`;
+
 const HeaderLogoLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   text-decoration: none;
+  span {
+    color: white;
+    letter-spacing: 3px;
+    font-weight: 700;
+    margin-left: 10px;
+    text-transform: uppercase;
+    user-select: none;
+  }
+  span.version {
+    margin-left: 5px;
+    opacity: 0.6;
+  }
 `;
 
 function App() {
   return (
     <Router>
       <Header>
-        <HeaderLogoLink to="/">
-          <img className="logo-image" src="/logo192.png" alt="logo" />
-          <span className="logo-text">api explorer <span className="version">v1.2.1</span></span>
-        </HeaderLogoLink>
+        <HeaderLogo>
+          <HeaderLogoLink to="/">
+            <HeaderLogoImage src="/logo192.png" alt="logo" />
+            <span>api explorer</span>
+          </HeaderLogoLink>
+          <HeaderLogoLink to="/changelog">
+            <span className="version">v1.2.2</span>
+          </HeaderLogoLink>
+        </HeaderLogo>
         <HeaderNav>
           <HeaderNavLink to="/" exact activeClassName="active">
             home
@@ -129,6 +142,9 @@ function App() {
           <Redirect to="/" />
         </Switch>
       </Main>
+      <div>
+        footer
+      </div>
     </Router>
   );
 }

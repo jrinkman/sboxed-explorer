@@ -44,6 +44,13 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.2.2',
+    subtitle: 'Changelog link',
+    changes: [
+      'Users are now navigated to the changelog page when clicking on the navbar version',
+    ],
+  },
+  {
     version: 'v1.2.1',
     subtitle: 'AssetInfo crash hotfix',
     changes: [
