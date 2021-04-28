@@ -156,7 +156,11 @@ function Info() {
   useEffect(() => {
     async function getMenuData(): Promise<void> {
       try {
-        setAssetInfo((await axios.get(`/asset/get/${id}`)).data.asset as AssetInfo);
+        // Load the data from the API
+        const data = (await axios.get(`/asset/get/${id}`)).data.asset as AssetInfo;
+
+        // Update the state
+        setAssetInfo(data);
       } catch (error) {
         console.error(error);
         setAssetInfoError(error);
@@ -175,7 +179,8 @@ function Info() {
   const dateString = DateTime.fromMillis(assetInfo.updated * 1000).toFormat('d LLL h:mm a');
 
   const handleBackClick = () => {
-    history.goBack();
+    const path = history.location.pathname;
+    history.push(path.substring(0, path.lastIndexOf('/')));
   };
 
   return (
@@ -210,3 +215,4 @@ function Info() {
 }
 
 export default Info;
+export type { AssetInfo };

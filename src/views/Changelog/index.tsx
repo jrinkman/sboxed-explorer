@@ -17,7 +17,7 @@ const Root = styled.div`
 
 const Section = styled.section`
   display: flex;
-  padding-bottom: 48px;
+  padding-bottom: 24px;
   flex-direction: column;
 `;
 
@@ -49,7 +49,7 @@ const changelog: ChangelogItem[] = [
     changes: [
       'Added this changelog you\'re reading right now!',
       'Fixed asset map / gamemode information page padding',
-      'TODO: Images are now preloaded before a page shows',
+      'Made the \'go back\' button more reliable',
     ],
   },
   {
@@ -84,7 +84,7 @@ function Changelog() {
             <Subheader>{log.subtitle}</Subheader>
           </div>
           <List>
-            {log.changes.map((change) => <ListItem>{change}</ListItem>)}
+            {log.changes.map((change) => <ListItem key={change}>{change}</ListItem>)}
           </List>
         </Section>
       ))}

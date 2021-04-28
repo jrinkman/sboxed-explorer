@@ -78,9 +78,6 @@ const HeaderNavLink = styled(NavLink)`
   }
   &:hover {
     opacity: 1;
-    &.active {
-      opacity: 0.6;
-    }
   }
 `;
 

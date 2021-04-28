@@ -59,8 +59,14 @@ function Assets() {
   useEffect(() => {
     async function getMenuData(): Promise<void> {
       try {
+        // Reset the state in the case that we're navigating to the same route
         if (assets) setAssets(null);
-        setAssets((await axios.get(`/asset/find/${assetType}`)).data as AssetResponse);
+
+        // Load the API data
+        const data = (await axios.get(`/asset/find/${assetType}`)).data as AssetResponse;
+
+        // Update the state
+        setAssets(data);
       } catch (error) {
         console.error(error);
         setAssetError(error);

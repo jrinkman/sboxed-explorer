@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import AssetCard, { Asset } from 'components/AssetCard';
-import Loader from '../../components/Loader';
-import Message from '../../components/Message';
+import Loader from 'components/Loader';
+import Message from 'components/Message';
 
 interface MenuItem {
   title: string;
@@ -53,7 +53,11 @@ function Gamemodes() {
   useEffect(() => {
     async function getMenuData(): Promise<void> {
       try {
-        setMenuItems((await axios.get('/menu')).data as MenuItem[]);
+        // Retireve the API data
+        const data: MenuItem[] = (await axios.get('/menu')).data as MenuItem[];
+
+        // Update the state
+        setMenuItems(data);
       } catch (error) {
         console.error(error);
         setMenuError(error);
