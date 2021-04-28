@@ -54,7 +54,7 @@ function Gamemodes() {
     async function getMenuData(): Promise<void> {
       try {
         // Retireve the API data
-        const data: MenuItem[] = (await axios.get('/menu')).data as MenuItem[];
+        const { data } = (await axios.get<MenuItem[]>('/menu'));
 
         // Update the state
         setMenuItems(data);

@@ -107,9 +107,9 @@ function App() {
           <HeaderNavLink to="/assets/map" activeClassName="active">
             maps
           </HeaderNavLink>
-          <HeaderNavLink to="/changelog" activeClassName="active">
+          {/* <HeaderNavLink to="/changelog" activeClassName="active">
             changes
-          </HeaderNavLink>
+          </HeaderNavLink> */}
         </HeaderNav>
       </Header>
       <Main>

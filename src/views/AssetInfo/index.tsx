@@ -157,7 +157,7 @@ function Info() {
     async function getMenuData(): Promise<void> {
       try {
         // Load the data from the API
-        const data = (await axios.get(`/asset/get/${id}`)).data.asset as AssetInfo;
+        const { data } = (await axios.get<AssetInfo>(`/asset/get/${id}`));
 
         // Update the state
         setAssetInfo(data);

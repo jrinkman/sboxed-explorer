@@ -57,16 +57,19 @@ function Assets() {
   const { type: assetType } = useParams<RouteParams>();
 
   useEffect(() => {
+    let cancelPromise: boolean = false;
     async function getMenuData(): Promise<void> {
       try {
         // Reset the state in the case that we're navigating to the same route
         if (assets) setAssets(null);
 
         // Load the API data
-        const data = (await axios.get(`/asset/find/${assetType}`)).data as AssetResponse;
+        const { data } = await axios.get<AssetResponse>(`/asset/find/${assetType}`);
 
         // Update the state
-        setAssets(data);
+        if (!cancelPromise) {
+          setAssets(data);
+        }
       } catch (error) {
         console.error(error);
         setAssetError(error);
@@ -74,6 +77,10 @@ function Assets() {
     }
 
     getMenuData();
+
+    return () => {
+      cancelPromise = true;
+    };
   }, [assetType]);
 
   if (assetError) {

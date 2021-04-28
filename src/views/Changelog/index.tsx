@@ -50,6 +50,8 @@ const changelog: ChangelogItem[] = [
       'Added this changelog you\'re reading right now!',
       'Fixed asset map / gamemode information page padding',
       'Made the \'go back\' button more reliable',
+      'Improved the way axios promise return types are handled',
+      'In-progress promises on the /asset route are now cancelled upon navigation',
     ],
   },
   {
