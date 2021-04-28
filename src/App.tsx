@@ -35,15 +35,6 @@ const Main = styled.main`
   overflow: auto;
 `;
 
-// const Credit = styled.span`
-//   color: white;
-//   opacity: 0.7;
-//   letter-spacing: 3px;
-//   font-weight: 700;
-//   text-transform: uppercase;
-//   user-select: none;
-// `;
-
 const HeaderNavLink = styled(NavLink)`
   height: 100%;
   color: white;
