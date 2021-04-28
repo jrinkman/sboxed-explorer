@@ -92,8 +92,12 @@ const HeaderLogoLink = styled(Link)`
     user-select: none;
   }
   span.version {
+    transition: opacity 100ms ease-out;
     margin-left: 5px;
     opacity: 0.6;
+  }
+  span.version:hover {
+    opacity: 1;
   }
 `;
 
@@ -120,9 +124,6 @@ function App() {
           <HeaderNavLink to="/assets/map" activeClassName="active">
             maps
           </HeaderNavLink>
-          {/* <HeaderNavLink to="/changelog" activeClassName="active">
-            changes
-          </HeaderNavLink> */}
         </HeaderNav>
       </Header>
       <Main>
@@ -142,9 +143,6 @@ function App() {
           <Redirect to="/" />
         </Switch>
       </Main>
-      <div>
-        footer
-      </div>
     </Router>
   );
 }
