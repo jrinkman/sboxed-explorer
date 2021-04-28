@@ -181,11 +181,11 @@ function Info() {
   // Format the date number to a string
   const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('d LLL h:mm a');
 
-  const handleOpenClick = () => {
-    // window.open('steam://run/4000');
-    window.open('steam://run/590830');
-    window.focus();
-  };
+  // const handleOpenClick = () => {
+  //   // window.open('steam://run/4000');
+  //   window.open('steam://run/590830');
+  //   window.focus();
+  // };
 
   const handleBackClick = () => {
     const path = history.location.pathname;
@@ -210,12 +210,12 @@ function Info() {
         <InfoLink href={asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
         <Description>{asset.description || 'No description provided.'}</Description>
         <Actions>
-          <Button
+          {/* <Button
             style={{ marginRight: 10 }}
             onClick={handleOpenClick}
           >
             Open in S&box
-          </Button>
+          </Button> */}
           <Button
             style={{ marginRight: 10 }}
             onClick={() => window.open(asset.downloadUrl || '#')}
