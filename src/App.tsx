@@ -95,7 +95,7 @@ function App() {
       <Header>
         <HeaderLogoLink to="/">
           <img className="logo-image" src="/logo192.png" alt="logo" />
-          <span className="logo-text">api explorer <span className="version">v1.2</span></span>
+          <span className="logo-text">api explorer <span className="version">v1.2.1</span></span>
         </HeaderLogoLink>
         <HeaderNav>
           <HeaderNavLink to="/" exact activeClassName="active">

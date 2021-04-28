@@ -8,23 +8,25 @@ import Message from 'components/Message';
 import pkgTypeString from 'helpers/pkgTypeString';
 
 interface AssetInfo {
-  org: {
+  asset: {
+    org: {
+      ident: string;
+      title: string;
+      description: string;
+      thumb: string;
+      socialTwitter: string;
+      socialWeb: string;
+    },
     ident: string;
     title: string;
+    summary: string;
     description: string;
     thumb: string;
-    socialTwitter: string;
-    socialWeb: string;
-  },
-  ident: string;
-  title: string;
-  summary: string;
-  description: string;
-  thumb: string;
-  background: string;
-  packageType: number;
-  downloadUrl: string;
-  updated: number;
+    background: string;
+    packageType: number;
+    downloadUrl: string;
+    updated: number;
+  }
 }
 
 interface RootProps {
@@ -174,9 +176,10 @@ function Info() {
     return <Message title="An error occured" subtitle="Looks like we couldn't find anything." paddingBottom />;
   }
   if (!assetInfo) return <Loader paddingBottom />;
+  const { asset } = assetInfo;
 
   // Format the date number to a string
-  const dateString = DateTime.fromMillis(assetInfo.updated * 1000).toFormat('d LLL h:mm a');
+  const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('d LLL h:mm a');
 
   const handleBackClick = () => {
     const path = history.location.pathname;
@@ -185,25 +188,25 @@ function Info() {
 
   return (
     <>
-      <Background background={assetInfo.background} />
+      <Background background={asset.background} />
       <Root>
         <Header>
-          <img className="logo" src={assetInfo.org.thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
-          <h1>{assetInfo.title}</h1>
-          <Chip>{pkgTypeString(assetInfo.packageType)}</Chip>
+          <img className="logo" src={asset.org.thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
+          <h1>{asset.title}</h1>
+          <Chip>{pkgTypeString(asset.packageType)}</Chip>
         </Header>
         <Date>
-          By {assetInfo.org.title},
+          By {asset.org.title},
           {' '} Updated {dateString}
         </Date>
-        <Subheader>{assetInfo.summary}</Subheader>
-        <InfoLink href={assetInfo.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
-        <InfoLink href={assetInfo.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
-        <Description>{assetInfo.description}</Description>
+        <Subheader>{asset.summary || 'No summary provided'}</Subheader>
+        <InfoLink href={asset.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
+        <InfoLink href={asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
+        <Description>{asset.description || 'No description provided.'}</Description>
         <Actions>
           <Button
             style={{ marginRight: 10 }}
-            onClick={() => window.open(assetInfo.downloadUrl)}
+            onClick={() => window.open(asset.downloadUrl || '#')}
           >
             Download
           </Button>

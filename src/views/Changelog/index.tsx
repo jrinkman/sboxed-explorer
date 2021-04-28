@@ -44,6 +44,13 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.2.1',
+    subtitle: 'AssetInfo crash hotfix',
+    changes: [
+      'Fixed crash with AssetInfo not loading correctly',
+    ],
+  },
+  {
     version: 'v1.2',
     subtitle: 'Changelog & usability update',
     changes: [
