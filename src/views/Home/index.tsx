@@ -43,18 +43,16 @@ const Header = styled.h1`
   margin: 0;
 `;
 
-const Subheader = styled.span`
-  color: white;
-  opacity: 0.6;
-  font-weight: 500;
-  font-size: 1.8rem;
-`;
-
-const Link = styled.a`
+const SubheaderLink = styled.a`
   color: white;
   font-weight: 500;
   font-size: 1.8rem;
   text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 100ms ease-out;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const Actions = styled.div`
@@ -88,7 +86,7 @@ function Home() {
           <Logo>&</Logo>
         </Border>
         <Header>API Explorer</Header>
-        <Subheader>v1.3 by <Link href="https://steamcommunity.com/profiles/76561198161943355/">astrojaxx</Link></Subheader>
+        <SubheaderLink href="https://steamcommunity.com/profiles/76561198161943355/">by astrojaxx</SubheaderLink>
         <Actions>
           <Button onClick={handleChangelogClick}>View Changelog</Button>
           <Button onClick={handleOpenClick}>Open s&box</Button>

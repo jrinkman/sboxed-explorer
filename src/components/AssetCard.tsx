@@ -21,12 +21,19 @@ interface Asset {
 const Root = styled.div`
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: hidden;
+  height: 392px;
   margin: 12px 12px 36px 12px;
   transition: opacity 100ms ease-out;
   &:hover {
     opacity: 0.4;
     cursor: pointer;
+    & div.thumb {
+      height: 255px;
+    }
+    & span.summary {
+      height: 65px;
+    }
   }
 `;
 
@@ -39,6 +46,7 @@ const Image = styled.div<CardProps>`
   align-items: flex-end;
   padding: 16px;
   margin-bottom: 16px;
+  transition: height 150ms cubic-bezier(0, 0, 0, 1);
   background-image: url("${(props) => props.thumbnail}");
   background-size: cover;
   background-color: rgb(33, 43, 54);
@@ -46,6 +54,7 @@ const Image = styled.div<CardProps>`
   border-radius: 16px;
   width: 275px;
   height: 275px;
+
 `;
 
 const Chip = styled.div`
@@ -80,9 +89,8 @@ const Summary = styled.span`
   opacity: 0.6;
   font-size: 0.75rem;
   width: 275px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  height: 18px;
+  transition: height 150ms cubic-bezier(0, 0, 0, 1);
   margin-top: 4px;
 `;
 
@@ -102,12 +110,12 @@ function MenuCard(props: Props) {
 
   return (
     <Root onClick={handleClick}>
-      <Image thumbnail={asset.thumb || missingAssetThumb}>
+      <Image className="thumb" thumbnail={asset.thumb || missingAssetThumb}>
         <Chip>{asset.org.title}</Chip>
       </Image>
       <Title>{asset.title}</Title>
       <Date>{pkgString} - Updated {dateString}</Date>
-      <Summary>{asset.summary}</Summary>
+      <Summary className="summary">{asset.summary}</Summary>
     </Root>
   );
 }

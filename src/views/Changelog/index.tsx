@@ -33,6 +33,13 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.3.1',
+    subtitle: 'Asset card improvements',
+    changes: [
+      'Hovering over asset cards now expand to show the full asset description',
+    ],
+  },
+  {
     version: 'v1.3',
     subtitle: 'Home & sorting update',
     changes: [
