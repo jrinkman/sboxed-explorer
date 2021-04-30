@@ -78,7 +78,8 @@ function Menu() {
               <Heading title={menuItem.title} subtitle={menuItem.description} />
             </div>
             <ButtonGroup
-              options={['recent', 'alphabetical']}
+              title="Sort By"
+              options={['recent', 'alphabetical', 'creator']}
               onChange={(sort) => {
                 setMenuSort({
                   ...menuSort,

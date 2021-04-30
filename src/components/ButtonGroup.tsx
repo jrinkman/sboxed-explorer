@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const Group = styled.div`
+interface GroupProps {
+  title?: string;
+}
+
+const Group = styled.div<GroupProps>`
   display: inline-flex;
+  align-items: center;
+  ${(props) => props.title && `
+    background-color: #1c2635;
+    padding: 4px;
+    border-radius: 20px;
+  `}
+  & span.title {
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    user-select: none;
+    padding-left: 8px;
+    padding-right: 12px;
+  }
   button {
     color: white;
+    font-size: 13px;
     font-weight: 700;
     opacity: 0.6;
     padding: 6px 12px 6px 12px;
@@ -13,7 +33,7 @@ const Group = styled.div`
     font-family: "Poppins", sans-serif;
     transition: opacity 100ms ease-out;
     text-transform: uppercase;
-    &:first-child {
+    &:nth-child(${(props) => (props.title ? 2 : 1)}) {
       border-top-left-radius: 16px;
       border-bottom-left-radius: 16px;
     }
@@ -31,12 +51,13 @@ const Group = styled.div`
   }
 `;
 interface Props {
+  title?: string;
   options: string[];
   onChange: (value: string) => void;
 }
 
 function ButtonGroup(props: Props) {
-  const { options, onChange } = props;
+  const { title, options, onChange } = props;
   const [active, setActive] = useState<string>(options ? options[0] : 'none');
 
   const onClick = (key: string) => {
@@ -45,7 +66,8 @@ function ButtonGroup(props: Props) {
   };
 
   return (
-    <Group>
+    <Group title={title}>
+      {title && <span className="title">{title}</span>}
       {options.map((option) => (
         <button
           className={option === active ? 'active' : undefined}

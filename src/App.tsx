@@ -68,7 +68,6 @@ const HeaderLogoImage = styled.img`
   width: 50px;
   height: 50px;
   margin-right: 10px;
-  border-radius: 12px;
 `;
 
 const HeaderLogoLink = styled(Link)`
@@ -111,7 +110,7 @@ function App(props: Props) {
             <span>api explorer</span>
           </HeaderLogoLink>
           <HeaderLogoLink to="/changelog">
-            <span className="version">v1.3.1</span>
+            <span className="version">v1.3.2</span>
           </HeaderLogoLink>
         </HeaderLogo>
         <HeaderNav>

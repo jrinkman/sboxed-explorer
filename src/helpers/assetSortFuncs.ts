@@ -9,6 +9,13 @@ const sortFuncs: { [key: string]: (a: Asset, b: Asset) => number } = {
     if (aVal > bVal) return 1;
     return 0;
   },
+  creator: (a: Asset, b: Asset) => {
+    const aVal = a.org.title.toLowerCase();
+    const bVal = b.org.title.toLowerCase();
+    if (aVal < bVal) return -1;
+    if (aVal > bVal) return 1;
+    return 0;
+  },
 };
 
 export default sortFuncs;

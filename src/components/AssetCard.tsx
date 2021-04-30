@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import pkgTypeString from 'helpers/pkgTypeString';
-import missingAssetThumb from './AssetCardMissing.png';
+import missingAssetThumb from 'assets/missing.png';
 
 interface Asset {
   org: {

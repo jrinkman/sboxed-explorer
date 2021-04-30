@@ -33,6 +33,15 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.3.2',
+    subtitle: 'Update to official logo',
+    changes: [
+      'Changed home page logo to official one',
+      'Can now also sort assets by creator',
+      'Button groups / sort by selectors now have titles for more clarity',
+    ],
+  },
+  {
     version: 'v1.3.1',
     subtitle: 'Asset card improvements',
     changes: [

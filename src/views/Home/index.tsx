@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import Background from 'components/Background';
 import Button from 'components/Button';
 
+import logoSvg from 'assets/sbox-brand-light.svg';
+
 const Root = styled.div`
   display: flex;
   align-items: center;
@@ -16,31 +18,38 @@ const Root = styled.div`
   align-text: center;
 `;
 
-const Border = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid white;
-  border-radius: 62px;
-  width: 225px;
-  height: 225px;
-  margin-bottom: 62px;
-`;
+// const Border = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   border: 3px solid white;
+//   border-radius: 62px;
+//   width: 225px;
+//   height: 225px;
+//   margin-bottom: 62px;
+// `;
 
-const Logo = styled.span`
-  cursor: default;
-  user-select: none;
-  font-size: 10rem;
-  font-weight: 800;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: white;
+// const Logo = styled.span`
+//   cursor: default;
+//   user-select: none;
+//   font-size: 10rem;
+//   font-weight: 800;
+//   -webkit-text-fill-color: transparent;
+//   -webkit-text-stroke-width: 3px;
+//   -webkit-text-stroke-color: white;
+// `;
+
+const LogoSvg = styled.img`
+  height: 175px;
+  width: auto;
+  margin-bottom: 24px;
 `;
 
 const Header = styled.h1`
   color: white;
   font-size: 2.8rem;
   margin: 0;
+  user-select: none;
 `;
 
 const SubheaderLink = styled.a`
@@ -49,6 +58,7 @@ const SubheaderLink = styled.a`
   font-size: 1.8rem;
   text-decoration: none;
   opacity: 0.6;
+  user-select: none;
   transition: opacity 100ms ease-out;
   &:hover {
     opacity: 0.8;
@@ -57,7 +67,7 @@ const SubheaderLink = styled.a`
 
 const Actions = styled.div`
   display: flex;
-  margin-top: 38px;
+  margin-top: 86px;
   padding-bottom: 64px;
   button {
     margin-left: 5px;
@@ -82,9 +92,10 @@ function Home() {
     <>
       <Background background="https://files.facepunch.com/garry/520632a2-e9d1-43c3-a51f-b059a73e407d.jpg" />
       <Root>
-        <Border>
+        {/* <Border>
           <Logo>&</Logo>
-        </Border>
+        </Border> */}
+        <LogoSvg src={logoSvg} />
         <Header>API Explorer</Header>
         <SubheaderLink href="https://steamcommunity.com/profiles/76561198161943355/">by astrojaxx</SubheaderLink>
         <Actions>

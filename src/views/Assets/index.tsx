@@ -100,7 +100,8 @@ function Assets() {
             />
           </div>
           <ButtonGroup
-            options={['recent', 'alphabetical']}
+            title="Sort By"
+            options={['recent', 'alphabetical', 'creator']}
             onChange={(sort) => setSortBy(sort)}
           />
         </SectionHeader>

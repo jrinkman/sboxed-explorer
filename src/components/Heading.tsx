@@ -10,6 +10,7 @@ const Header = styled.h1`
   color: white;
   font-size: 2rem;
   margin: 0;
+  user-select: none;
 `;
 
 const Subheader = styled.span`
@@ -17,6 +18,7 @@ const Subheader = styled.span`
   opacity: 0.6;
   font-weight: 400;
   font-size: 1rem;
+  user-select: none;
 `;
 
 function Loader(props: Props) {
