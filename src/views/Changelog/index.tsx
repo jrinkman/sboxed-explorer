@@ -28,6 +28,7 @@ const List = styled.ul`
 const ListItem = styled.li`
   color: white;
   font-weight: 500;
+  max-width: 600px;
 `;
 
 const changelog: ChangelogItem[] = [
@@ -41,7 +42,7 @@ const changelog: ChangelogItem[] = [
       'Renamed \'gamemodes\' to \'modes\' in navbar',
       'Better implementation of reusable components',
       'Fixed capitalization of s&box',
-      'Added a \'open s&box\' button to the asset info page. Hopefully, this will eventually become \'open IN s&box\' button if gamemodes / maps can be viewed on startup using the Steam browser protocol with startup arguments.',
+      'Added an \'open s&box\' button to the asset info page. Hopefully this will become a \'open IN s&box\' button when gamemodes / maps can be displayed on startup using the Steam browser protocol.',
     ],
   },
   {

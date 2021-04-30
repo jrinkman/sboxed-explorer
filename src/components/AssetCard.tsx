@@ -21,6 +21,7 @@ interface Asset {
 const Root = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   margin: 12px 12px 36px 12px;
   border-radius: 16px;
   transition: opacity 100ms ease-out;
@@ -91,8 +92,8 @@ interface Props {
 }
 
 function MenuCard(props: Props) {
-  const history = useHistory();
   const { asset } = props;
+  const history = useHistory();
   const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('dd/MM/yyyy');
   const pkgString = pkgTypeString(asset.packageType);
 
