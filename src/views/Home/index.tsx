@@ -12,7 +12,7 @@ const Root = styled.div`
   flex-grow: 1;
   padding-left: 40px;
   padding-right: 40px;
-  padding-top: 112px;
+  padding-top: 108px;
   align-text: center;
 `;
 
@@ -60,6 +60,7 @@ const Link = styled.a`
 const Actions = styled.div`
   display: flex;
   margin-top: 38px;
+  padding-bottom: 40px;
   button {
     margin-left: 5px;
     margin-right: 5px;
@@ -87,7 +88,7 @@ function Home() {
           <Logo>&</Logo>
         </Border>
         <Header>API Explorer</Header>
-        <Subheader>v1.3 <Link href="https://google.com">astrojaxx</Link></Subheader>
+        <Subheader>v1.3 by <Link href="https://google.com">astrojaxx</Link></Subheader>
         <Actions>
           <Button onClick={handleChangelogClick}>View Changelog</Button>
           <Button onClick={handleOpenClick}>Open s&box</Button>
