@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import firebase from 'firebase/app';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -14,19 +13,6 @@ const isLocal = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 axios.defaults.baseURL = isLocal ?
   'http://localhost:5001/sbox-api-explorer/us-central1/proxy' :
   'https://us-central1-sbox-api-explorer.cloudfunctions.net/proxy';
-
-// Initialize firebase
-const firebaseConfig = {
-  apiKey: 'AIzaSyCGDzdhCdOCpENl7ziicwos8gB8t-y1GEc',
-  authDomain: 'sbox-api-explorer.firebaseapp.com',
-  projectId: 'sbox-api-explorer',
-  storageBucket: 'sbox-api-explorer.appspot.com',
-  messagingSenderId: '1050786626818',
-  appId: '1:1050786626818:web:5170405557db106505d61b',
-  measurementId: 'G-90RNVBCGCN',
-};
-
-firebase.initializeApp(firebaseConfig);
 
 // Render the dom
 ReactDOM.render(

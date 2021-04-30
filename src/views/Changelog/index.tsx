@@ -33,9 +33,9 @@ const ListItem = styled.li`
 const changelog: ChangelogItem[] = [
   {
     version: 'v1.3',
-    subtitle: 'Sorting Update',
+    subtitle: 'Sorting update',
     changes: [
-      'Users can now sort maps & gamemodes alphabetically, or by most recent',
+      'Alphabetical & recent sorting for maps/gamemodes',
       'Better implementation of reusable components',
     ],
   },
