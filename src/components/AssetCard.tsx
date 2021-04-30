@@ -23,7 +23,6 @@ const Root = styled.div`
   flex-direction: column;
   overflow-y: auto;
   margin: 12px 12px 36px 12px;
-  border-radius: 16px;
   transition: opacity 100ms ease-out;
   &:hover {
     opacity: 0.4;

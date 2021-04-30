@@ -68,6 +68,7 @@ const HeaderLogoImage = styled.img`
   width: 50px;
   height: 50px;
   margin-right: 10px;
+  border-radius: 12px;
 `;
 
 const HeaderLogoLink = styled(Link)`
