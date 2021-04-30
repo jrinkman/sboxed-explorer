@@ -36,13 +36,13 @@ const changelog: ChangelogItem[] = [
     version: 'v1.3',
     subtitle: 'Home & sorting update',
     changes: [
-      'Added home page & moved menu API to /menu',
-      'Alphabetical & recent sorting for maps/gamemodes',
-      'Updated the icon to match the official one',
+      'Added home page & moved menu endpoint to /menu',
+      'Alphabetical & recent sorting',
+      'Added an \'open s&box\' button to the asset info & home pages. Hopefully this will become a \'open IN s&box\' button when gamemodes / maps can be opened on startup using the Steam browser protocol.',
+      'Updated icons to match the official one',
       'Renamed \'gamemodes\' to \'modes\' in navbar',
       'Better implementation of reusable components',
       'Fixed capitalization of s&box',
-      'Added an \'open s&box\' button to the asset info page. Hopefully this will become a \'open IN s&box\' button when gamemodes / maps can be displayed on startup using the Steam browser protocol.',
     ],
   },
   {

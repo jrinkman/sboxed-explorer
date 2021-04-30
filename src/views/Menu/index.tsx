@@ -5,6 +5,8 @@ import AssetCard, { Asset } from 'components/AssetCard';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Heading from 'components/Heading';
+import ButtonGroup from 'components/ButtonGroup';
+import assetSortFuncs from 'helpers/assetSortFuncs';
 
 interface MenuItem {
   title: string;
@@ -34,8 +36,15 @@ const Section = styled.section`
   }
 `;
 
+const SectionHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 function Menu() {
   const [menuItems, setMenuItems] = useState<MenuItem[] | null>(null);
+  const [menuSort, setMenuSort] = useState<{[key: string]: string}>({});
   const [menuError, setMenuError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -64,9 +73,22 @@ function Menu() {
     <Root>
       {menuItems.map((menuItem) => (
         <Section key={menuItem.title}>
-          <Heading title={menuItem.title} subtitle={menuItem.description} />
+          <SectionHeader>
+            <div>
+              <Heading title={menuItem.title} subtitle={menuItem.description} />
+            </div>
+            <ButtonGroup
+              options={['recent', 'alphabetical']}
+              onChange={(sort) => {
+                setMenuSort({
+                  ...menuSort,
+                  [menuItem.title]: sort,
+                });
+              }}
+            />
+          </SectionHeader>
           <div className="packages">
-            {menuItem.packages.map((asset) => <AssetCard key={asset.ident} asset={asset} />)}
+            {menuItem.packages.sort(assetSortFuncs[menuSort[menuItem.title] || 'recent']).map((asset) => <AssetCard key={asset.ident} asset={asset} />)}
           </div>
         </Section>
       ))}

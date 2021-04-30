@@ -8,6 +8,7 @@ import Message from 'components/Message';
 import Heading from 'components/Heading';
 import ButtonGroup from 'components/ButtonGroup';
 import pkgTypeString from 'helpers/pkgTypeString';
+import assetSortFuncs from 'helpers/assetSortFuncs';
 
 interface AssetResponse {
   type: number;
@@ -84,16 +85,7 @@ function Assets() {
   if (!assets) return <Loader paddingBottom />;
 
   // Sort functions
-  if (sortBy === 'recent') assets.assets = assets.assets.sort((a, b) => b.updated - a.updated);
-  if (sortBy === 'alphabetical') {
-    assets.assets = assets.assets.sort((a, b) => {
-      const aVal = a.title.toLowerCase();
-      const bVal = b.title.toLowerCase();
-      if (aVal < bVal) return -1;
-      if (aVal > bVal) return 1;
-      return 0;
-    });
-  }
+  assets.assets = assets.assets.sort(assetSortFuncs[sortBy]);
 
   // Get the display name of the package type
   const assetTypeName = pkgTypeString(assets.type);

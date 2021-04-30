@@ -12,7 +12,7 @@ const Root = styled.div`
   flex-grow: 1;
   padding-left: 40px;
   padding-right: 40px;
-  padding-top: 108px;
+  padding-top: 90px;
   align-text: center;
 `;
 
@@ -60,7 +60,7 @@ const Link = styled.a`
 const Actions = styled.div`
   display: flex;
   margin-top: 38px;
-  padding-bottom: 40px;
+  padding-bottom: 64px;
   button {
     margin-left: 5px;
     margin-right: 5px;
