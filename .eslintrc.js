@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-use-before-define': 'off',
+    'no-unused-vars': 'off',
     'operator-linebreak': 'off',
     'linebreak-style': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],

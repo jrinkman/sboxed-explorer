@@ -8,13 +8,12 @@ import reportWebVitals from './reportWebVitals';
 
 // Set the base URL to the proxied S&box API URL
 (window as any).axios = axios;
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-  axios.defaults.baseURL =
-    'http://localhost:5001/sbox-api-explorer/us-central1/proxy';
-} else {
-  axios.defaults.baseURL =
+const isLocal = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+
+// Set the API url based on whether we're running locally
+axios.defaults.baseURL = isLocal ?
+  'http://localhost:5001/sbox-api-explorer/us-central1/proxy' :
   'https://us-central1-sbox-api-explorer.cloudfunctions.net/proxy';
-}
 
 // Initialize firebase
 const firebaseConfig = {
@@ -32,7 +31,7 @@ firebase.initializeApp(firebaseConfig);
 // Render the dom
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App isLocal={isLocal} />
   </React.StrictMode>,
   document.getElementById('root'),
 );

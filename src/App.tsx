@@ -14,6 +14,7 @@ import Home from 'views/Home';
 import Changelog from 'views/Changelog';
 import Assets from 'views/Assets';
 import AssetInfo from 'views/AssetInfo';
+import Dev from 'views/Dev';
 
 const Header = styled.header`
   display: flex;
@@ -92,7 +93,13 @@ const HeaderLogoLink = styled(Link)`
   }
 `;
 
-function App() {
+interface Props {
+  isLocal?: boolean;
+}
+
+function App(props: Props) {
+  const { isLocal } = props;
+
   return (
     <Router>
       <Header>
@@ -102,7 +109,7 @@ function App() {
             <span>api explorer</span>
           </HeaderLogoLink>
           <HeaderLogoLink to="/changelog">
-            <span className="version">v1.2.2</span>
+            <span className="version">v1.3</span>
           </HeaderLogoLink>
         </HeaderLogo>
         <HeaderNav>
@@ -115,6 +122,11 @@ function App() {
           <HeaderNavLink to="/assets/map" activeClassName="active">
             maps
           </HeaderNavLink>
+          {isLocal && (
+          <HeaderNavLink to="/dev" activeClassName="active">
+            dev
+          </HeaderNavLink>
+          )}
         </HeaderNav>
       </Header>
       <Main>
@@ -128,6 +140,11 @@ function App() {
           <Route path="/changelog">
             <Changelog />
           </Route>
+          {isLocal && (
+          <Route path="/dev">
+            <Dev />
+          </Route>
+          )}
           <Route path="/">
             <Home />
           </Route>

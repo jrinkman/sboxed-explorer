@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Heading from 'components/Heading';
 
 interface ChangelogItem {
   version: string;
@@ -21,19 +22,6 @@ const Section = styled.section`
   flex-direction: column;
 `;
 
-const Header = styled.h1`
-  color: white;
-  font-size: 2rem;
-  margin: 0;
-`;
-
-const Subheader = styled.span`
-  color: white;
-  opacity: 0.6;
-  font-weight: 400;
-  font-size: 1rem;
-`;
-
 const List = styled.ul`
 `;
 
@@ -43,6 +31,14 @@ const ListItem = styled.li`
 `;
 
 const changelog: ChangelogItem[] = [
+  {
+    version: 'v1.3',
+    subtitle: 'Sorting Update',
+    changes: [
+      'Users can now sort maps & gamemodes alphabetically, or by most recent',
+      'Better implementation of reusable components',
+    ],
+  },
   {
     version: 'v1.2.2',
     subtitle: 'Changelog link',
@@ -95,10 +91,7 @@ function Changelog() {
     <Root>
       {changelog.map((log) => (
         <Section key={log.version}>
-          <div className="header">
-            <Header>{log.version}</Header>
-            <Subheader>{log.subtitle}</Subheader>
-          </div>
+          <Heading title={log.version} subtitle={log.subtitle} />
           <List>
             {log.changes.map((change) => <ListItem key={change}>{change}</ListItem>)}
           </List>

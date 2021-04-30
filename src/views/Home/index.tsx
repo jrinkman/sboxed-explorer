@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import AssetCard, { Asset } from 'components/AssetCard';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
+import Heading from 'components/Heading';
 
 interface MenuItem {
   title: string;
@@ -31,19 +32,6 @@ const Section = styled.section`
     margin-left: -12px;
     margin-right: -12px;
   }
-`;
-
-const Header = styled.h1`
-  color: white;
-  font-size: 2rem;
-  margin: 0;
-`;
-
-const Subheader = styled.span`
-  color: white;
-  opacity: 0.6;
-  font-weight: 400;
-  font-size: 1rem;
 `;
 
 function Gamemodes() {
@@ -76,10 +64,7 @@ function Gamemodes() {
     <Root>
       {menuItems.map((menuItem) => (
         <Section key={menuItem.title}>
-          <div className="header">
-            <Header>{menuItem.title}</Header>
-            <Subheader>{menuItem.description}</Subheader>
-          </div>
+          <Heading title={menuItem.title} subtitle={menuItem.description} />
           <div className="packages">
             {menuItem.packages.map((asset) => <AssetCard key={asset.ident} asset={asset} />)}
           </div>

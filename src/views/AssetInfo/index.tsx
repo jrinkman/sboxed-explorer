@@ -5,6 +5,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
+import Button from 'components/Button';
 import pkgTypeString from 'helpers/pkgTypeString';
 
 interface AssetInfo {
@@ -111,27 +112,6 @@ const InfoLink = styled.a<InfoLinkProps>`
   }
 `;
 
-const Button = styled.button`
-  color: white;
-  font-weight: 700;
-  padding: 12px 24px 12px 24px;
-  border: 0;
-  border-radius: 12px;
-  background-color: #00A2FF;
-  font-family: "Poppins", sans-serif;
-  transition: background-color 100ms ease-out;
-  text-transform: uppercase;
-  &:hover {
-    cursor: pointer;
-    background-color: #2b5797;
-  }
-  &:disabled {
-    cursor: default;
-    background-color: #00A2FF;
-    opacity: 0.4;
-  }
-`;
-
 const Chip = styled.div`
   color: white;
   padding: 6px 8px 6px 8px;
@@ -213,7 +193,7 @@ function Info() {
         <Subheader>{asset.summary || 'No summary provided'}</Subheader>
         <InfoLink href={asset.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
         <InfoLink href={asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
-        <Description>{asset.description || 'No description provided.'}</Description>
+        <Description>{asset.description || 'No description provided'}</Description>
         <Actions>
           {/* <Button
             style={{ marginRight: 10 }}
@@ -222,12 +202,13 @@ function Info() {
             Open in S&box
           </Button> */}
           <Button
+            type="button"
             style={{ marginRight: 10 }}
             onClick={() => window.open(asset.downloadUrl || '#')}
           >
             Download
           </Button>
-          <Button onClick={handleBackClick}>Go Back</Button>
+          <Button type="button" onClick={handleBackClick}>Go Back</Button>
         </Actions>
       </Root>
     </>
