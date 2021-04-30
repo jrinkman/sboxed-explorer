@@ -38,9 +38,9 @@ const changelog: ChangelogItem[] = [
     changes: [
       'Added home page & moved menu endpoint to /menu',
       'Alphabetical & recent sorting',
-      'Added an \'open s&box\' button to the asset info & home pages. Hopefully this will become a \'open IN s&box\' button when gamemodes / maps can be opened on startup using the Steam browser protocol.',
+      'Added an \'open s&box\' button to the asset info & home pages. Hopefully, this will become a \'open IN s&box\' button when gamemodes / maps can be opened on startup using the Steam browser protocol.',
       'Updated icons to match the official one',
-      'Renamed \'gamemodes\' to \'modes\' in navbar',
+      'Renamed \'gamemodes\' to \'modes\' in the navbar',
       'Better implementation of reusable components',
       'Fixed capitalization of s&box',
     ],

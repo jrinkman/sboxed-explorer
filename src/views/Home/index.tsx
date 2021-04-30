@@ -88,7 +88,7 @@ function Home() {
           <Logo>&</Logo>
         </Border>
         <Header>API Explorer</Header>
-        <Subheader>v1.3 by <Link href="https://google.com">astrojaxx</Link></Subheader>
+        <Subheader>v1.3 by <Link href="https://steamcommunity.com/profiles/76561198161943355/">astrojaxx</Link></Subheader>
         <Actions>
           <Button onClick={handleChangelogClick}>View Changelog</Button>
           <Button onClick={handleOpenClick}>Open s&box</Button>
