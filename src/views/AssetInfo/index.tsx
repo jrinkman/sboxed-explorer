@@ -181,10 +181,11 @@ function Info() {
         <Description>{asset.description || 'No description provided'}</Description>
         <Actions>
           <Button
+            disabled
             style={{ marginRight: 10 }}
             onClick={handleOpenClick}
           >
-            Open s&box
+            Open in s&box
           </Button>
           <Button
             type="button"
