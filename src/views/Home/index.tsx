@@ -1,77 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
-import AssetCard, { Asset } from 'components/AssetCard';
-import Loader from 'components/Loader';
-import Message from 'components/Message';
-import Heading from 'components/Heading';
-
-interface MenuItem {
-  title: string;
-  description: string;
-  packages: Asset[];
-}
+import Background from 'components/Background';
 
 const Root = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   flex-grow: 1;
   padding-left: 40px;
   padding-right: 40px;
+  padding-bottom: 98px;
+  align-text: center;
 `;
 
-const Section = styled.section`
-  display: flex;
-  padding-bottom: 48px;
-  flex-direction: column;
-  .packages {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-top: 16px;
-    margin-left: -12px;
-    margin-right: -12px;
-  }
+const Header = styled.h1`
+  color: white;
+  font-size: 3rem;
+  margin: 0;
 `;
 
-function Gamemodes() {
-  const [menuItems, setMenuItems] = useState<MenuItem[] | null>(null);
-  const [menuError, setMenuError] = useState<Error | null>(null);
+const Subheader = styled.span`
+  color: white;
+  opacity: 0.6;
+  font-weight: 400;
+  font-size: 1.8rem;
+`;
 
-  useEffect(() => {
-    async function getMenuData(): Promise<void> {
-      try {
-        // Retireve the API data
-        const { data } = (await axios.get<MenuItem[]>('/menu'));
-
-        // Update the state
-        setMenuItems(data);
-      } catch (error) {
-        console.error(error);
-        setMenuError(error);
-      }
-    }
-
-    getMenuData();
-  }, []);
-
-  if (menuError) {
-    return <Message title="An error occured" subtitle="Check the console for more details." paddingBottom />;
-  }
-  if (!menuItems) return <Loader paddingBottom />;
-
+function Home() {
   return (
-    <Root>
-      {menuItems.map((menuItem) => (
-        <Section key={menuItem.title}>
-          <Heading title={menuItem.title} subtitle={menuItem.description} />
-          <div className="packages">
-            {menuItem.packages.map((asset) => <AssetCard key={asset.ident} asset={asset} />)}
-          </div>
-        </Section>
-      ))}
-    </Root>
+    <>
+      <Background background="https://files.facepunch.com/garry/520632a2-e9d1-43c3-a51f-b059a73e407d.jpg" />
+      <Root>
+        <Header>s&box API Explorer</Header>
+        <Subheader>v1.3 by astrojaxx</Subheader>
+      </Root>
+    </>
   );
 }
 
-export default Gamemodes;
+export default Home;

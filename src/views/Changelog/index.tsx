@@ -33,10 +33,15 @@ const ListItem = styled.li`
 const changelog: ChangelogItem[] = [
   {
     version: 'v1.3',
-    subtitle: 'Sorting update',
+    subtitle: 'Home & sorting update',
     changes: [
+      'Added home page & moved menu API to /menu',
       'Alphabetical & recent sorting for maps/gamemodes',
+      'Updated the icon to match the official one',
+      'Renamed \'gamemodes\' to \'modes\' in navbar',
       'Better implementation of reusable components',
+      'Fixed capitalization of s&box',
+      'Added a \'open s&box\' button to the asset info page. Hopefully, this will eventually become \'open IN s&box\' button if gamemodes / maps can be viewed on startup using the Steam browser protocol with startup arguments.',
     ],
   },
   {
@@ -79,7 +84,7 @@ const changelog: ChangelogItem[] = [
     version: 'v1.0',
     subtitle: 'The first release of this app',
     changes: [
-      'S&box main menu recreated',
+      's&box main menu recreated',
       'Showing new & popular gamemodes',
       'Can click on gamemodes to see more info',
     ],

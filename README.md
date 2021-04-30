@@ -1,4 +1,4 @@
-# S&box API Explorer
+# s&box API Explorer
 
 > A web interface for S&box's API
 

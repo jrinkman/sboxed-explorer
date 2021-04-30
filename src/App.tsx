@@ -11,6 +11,7 @@ import styled from 'styled-components';
 
 // Views
 import Home from 'views/Home';
+import Menu from 'views/Menu';
 import Changelog from 'views/Changelog';
 import Assets from 'views/Assets';
 import AssetInfo from 'views/AssetInfo';
@@ -116,21 +117,22 @@ function App(props: Props) {
           <HeaderNavLink to="/" exact activeClassName="active">
             home
           </HeaderNavLink>
+          <HeaderNavLink to="/menu" exact activeClassName="active">
+            menu
+          </HeaderNavLink>
           <HeaderNavLink to="/assets/gamemode" activeClassName="active">
-            gamemodes
+            modes
           </HeaderNavLink>
           <HeaderNavLink to="/assets/map" activeClassName="active">
             maps
           </HeaderNavLink>
-          {isLocal && (
-          <HeaderNavLink to="/dev" activeClassName="active">
-            dev
-          </HeaderNavLink>
-          )}
         </HeaderNav>
       </Header>
       <Main>
         <Switch>
+          <Route path="/menu">
+            <Menu />
+          </Route>
           <Route path="/assets/:type/:id">
             <AssetInfo />
           </Route>

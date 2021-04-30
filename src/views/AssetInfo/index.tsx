@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Button from 'components/Button';
+import Background from 'components/Background';
 import pkgTypeString from 'helpers/pkgTypeString';
 
 interface AssetInfo {
@@ -30,10 +31,6 @@ interface AssetInfo {
   }
 }
 
-interface RootProps {
-  background: string;
-}
-
 interface InfoLinkProps {
   paddingTop?: boolean;
 }
@@ -43,18 +40,6 @@ const Root = styled.div`
   flex-direction: column;
   flex-grow: 1;
   padding: 40px;
-`;
-
-const Background = styled.div<RootProps>`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  right: 0;
-  z-index: -100;
-  background-image: url("${(props) => props.background}");
-  background-size: cover;
-  opacity: 0.1;
 `;
 
 const Header = styled.div`
@@ -166,11 +151,11 @@ function Info() {
   // Format the date number to a string
   const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('d LLL h:mm a');
 
-  // const handleOpenClick = () => {
-  //   // window.open('steam://run/4000');
-  //   window.open('steam://run/590830');
-  //   window.focus();
-  // };
+  const handleOpenClick = () => {
+    // window.open('steam://run/4000');
+    window.open('steam://run/590830');
+    window.focus();
+  };
 
   const handleBackClick = () => {
     const path = history.location.pathname;
@@ -195,12 +180,12 @@ function Info() {
         <InfoLink href={asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
         <Description>{asset.description || 'No description provided'}</Description>
         <Actions>
-          {/* <Button
+          <Button
             style={{ marginRight: 10 }}
             onClick={handleOpenClick}
           >
-            Open in S&box
-          </Button> */}
+            Open s&box
+          </Button>
           <Button
             type="button"
             style={{ marginRight: 10 }}
