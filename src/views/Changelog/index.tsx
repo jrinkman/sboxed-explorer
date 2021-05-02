@@ -33,6 +33,16 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.3.3',
+    subtitle: 'Slightly tweaked homescreen',
+    changes: [
+      'Added my profile image to the home page credit',
+      'Changed credit font size',
+      'Changed home page buttons positioning & opacity',
+      'Switched \'open s&box\' button to \'go to menu\' button',
+    ],
+  },
+  {
     version: 'v1.3.2',
     subtitle: 'Update to official logo',
     changes: [

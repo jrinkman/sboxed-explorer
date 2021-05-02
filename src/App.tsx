@@ -110,7 +110,7 @@ function App(props: Props) {
             <span>api explorer</span>
           </HeaderLogoLink>
           <HeaderLogoLink to="/changelog">
-            <span className="version">v1.3.2</span>
+            <span className="version">v1.3.3</span>
           </HeaderLogoLink>
         </HeaderLogo>
         <HeaderNav>
