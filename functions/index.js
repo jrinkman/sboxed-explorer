@@ -11,10 +11,7 @@ axios.defaults.baseURL =
 // Automatically allow cross-origin requests
 app.use(cors({ origin: ['https://sbox-api-explorer.web.app', 'http://localhost:3000'] }));
 
-app.get('/', async (req, res) => {
-  res.sendStatus(200);
-});
-
+// Reusable API promise
 const sboxApi = async (endpoint, res) => {
   try {
     res.json((await axios.get(endpoint)).data);
@@ -24,6 +21,12 @@ const sboxApi = async (endpoint, res) => {
   }
 };
 
+// API status check endpoint
+app.get('/', async (req, res) => {
+  res.sendStatus(200);
+});
+
+// Proxy API endpoints
 app.get('/menu', (req, res) => sboxApi('/menu/index', res));
 app.get('/asset/get/:id', (req, res) => sboxApi(`/asset/get?id=${req.params.id}`, res));
 app.get('/asset/find/:type', (req, res) => sboxApi(`/asset/find?type=${req.params.type}`, res));
