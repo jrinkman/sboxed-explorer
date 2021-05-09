@@ -129,7 +129,7 @@ function generateDescription(description?: string) {
   if (description) {
     console.log(description);
     // Split each newline character into its own item
-    return description.split('\n').map((content) => <DescriptionItem>{content}</DescriptionItem>);
+    return description.split('\r\n').map((content) => <DescriptionItem>{content}</DescriptionItem>);
   }
 
   // Return a placeholder description
