@@ -33,6 +33,13 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.3.5',
+    subtitle: 'Asset information page fixes',
+    changes: [
+      'Newline characters are now parsed & displayed correctly on asset information pages',
+    ],
+  },
+  {
     version: 'v1.3.4',
     subtitle: 'Open-source',
     changes: [

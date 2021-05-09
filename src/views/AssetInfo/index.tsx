@@ -67,13 +67,19 @@ const Subheader = styled.span`
   margin-top: 24px;
 `;
 
-const Description = styled.span`
+const Description = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 45px;
+  margin-bottom: 45px;
+  width: 75%;
+`;
+
+const DescriptionItem = styled.span`
   color: white;
   opacity: 0.9;
   font-size: 1rem;
-  margin-top: 55px;
-  margin-bottom: 35px;
-  width: 75%;
+  height: 25px;
 `;
 
 const Date = styled.span`
@@ -117,6 +123,17 @@ const Actions = styled.div`
 
 interface InfoRouteParams {
   id: string;
+}
+
+function generateDescription(description?: string) {
+  if (description) {
+    console.log(description);
+    // Split each newline character into its own item
+    return description.split('\n').map((content) => <DescriptionItem>{content}</DescriptionItem>);
+  }
+
+  // Return a placeholder description
+  return <DescriptionItem>No description provided</DescriptionItem>;
 }
 
 function Info() {
@@ -178,7 +195,8 @@ function Info() {
         <Subheader>{asset.summary || 'No summary provided'}</Subheader>
         <InfoLink href={asset.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
         <InfoLink href={asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
-        <Description>{asset.description || 'No description provided'}</Description>
+        <Description>{generateDescription(asset.description)}
+        </Description>
         <Actions>
           <Button
             disabled
