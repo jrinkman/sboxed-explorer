@@ -33,6 +33,15 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.3.4',
+    subtitle: 'Open-source',
+    changes: [
+      'The project is now open-source. Yay!',
+      'Added a \'View on GitHub\' button to the home page',
+      'Site navbar is now in it\'s own component',
+    ],
+  },
+  {
     version: 'v1.3.3',
     subtitle: 'Slightly tweaked homescreen',
     changes: [

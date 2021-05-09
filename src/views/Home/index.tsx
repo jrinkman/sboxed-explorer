@@ -92,8 +92,8 @@ function Home() {
         </Credit>
         <Actions>
           <Button onClick={handleChangelogClick}>View Changelog</Button>
-          <Button onClick={handleGitHubClick}>View on GitHub</Button>
-          <Button onClick={handleMenuClick}>Go to Menu</Button>
+          <Button onClick={handleGitHubClick}> View GitHub</Button>
+          <Button onClick={handleMenuClick}>Goto Menu</Button>
         </Actions>
       </Root>
     </>
