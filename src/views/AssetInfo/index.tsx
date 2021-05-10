@@ -79,7 +79,7 @@ const DescriptionItem = styled.span`
   color: white;
   opacity: 0.9;
   font-size: 1rem;
-  height: 25px;
+  min-height: 25px;
 `;
 
 const Date = styled.span`
