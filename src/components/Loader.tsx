@@ -2,15 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  paddingBottom: boolean;
+  paddingBottom?: boolean;
+  message?: string;
 }
 
 const Root = styled.div<Props>`
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
   padding-bottom: ${(props) => (props.paddingBottom ? '98px' : '0px')};
+  & .message {
+    color: white;
+    opacity: 0.75;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 24px;
+  }
 `;
 
 const RippleLoader = styled.div`
@@ -47,7 +56,7 @@ const RippleLoader = styled.div`
 `;
 
 function Message(props: Props) {
-  const { paddingBottom } = props;
+  const { message, paddingBottom } = props;
 
   return (
     <Root paddingBottom={paddingBottom}>
@@ -55,6 +64,7 @@ function Message(props: Props) {
         <div />
         <div />
       </RippleLoader>
+      {message && <span className="message">{message}</span>}
     </Root>
   );
 }

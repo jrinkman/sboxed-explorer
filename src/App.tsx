@@ -9,12 +9,16 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
+// Runtime constants
+import runtimeConstants from 'helpers/runtimeConstants';
+
 // Views
 import Home from 'views/Home';
 import Menu from 'views/Menu';
 import Changelog from 'views/Changelog';
 import Assets from 'views/Assets';
 import AssetInfo from 'views/AssetInfo';
+import Auth from 'views/Auth';
 import Dev from 'views/Dev';
 
 // Header component
@@ -27,18 +31,15 @@ const Main = styled.main`
   overflow: auto;
 `;
 
-interface Props {
-  isLocal?: boolean;
-}
-
-function App(props: Props) {
-  const { isLocal } = props;
-
+function App() {
   return (
     <Router>
       <Header />
       <Main>
         <Switch>
+          <Route path="/auth">
+            <Auth />
+          </Route>
           <Route path="/menu">
             <Menu />
           </Route>
@@ -51,10 +52,10 @@ function App(props: Props) {
           <Route path="/changelog">
             <Changelog />
           </Route>
-          {isLocal && (
-          <Route path="/dev">
-            <Dev />
-          </Route>
+          {runtimeConstants.isLocal && (
+            <Route path="/dev">
+              <Dev />
+            </Route>
           )}
           <Route path="/">
             <Home />

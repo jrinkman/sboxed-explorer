@@ -51,7 +51,7 @@ function Menu() {
     async function getMenuData(): Promise<void> {
       try {
         // Retireve the API data
-        const { data } = (await axios.get<MenuItem[]>('/menu'));
+        const { data } = (await axios.get<MenuItem[]>('/proxy/menu'));
 
         // Update the state
         setMenuItems(data);
@@ -78,7 +78,7 @@ function Menu() {
               <Heading title={menuItem.title} subtitle={menuItem.description} />
             </div>
             <ButtonGroup
-              title="Sort By"
+              label="Sort By"
               options={['recent', 'alphabetical', 'creator']}
               onChange={(sort) => {
                 setMenuSort({

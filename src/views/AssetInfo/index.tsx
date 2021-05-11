@@ -145,7 +145,7 @@ function Info() {
     async function getMenuData(): Promise<void> {
       try {
         // Load the data from the API
-        const { data } = (await axios.get<AssetInfo>(`/asset/get/${id}`));
+        const { data } = (await axios.get<AssetInfo>(`/proxy/asset/get/${id}`));
 
         // Update the state
         setAssetInfo(data);
@@ -168,7 +168,6 @@ function Info() {
   const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('d LLL h:mm a');
 
   const handleOpenClick = () => {
-    // window.open('steam://run/4000');
     window.open('steam://run/590830');
     window.focus();
   };

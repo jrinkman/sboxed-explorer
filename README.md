@@ -15,9 +15,7 @@ The API endpoints that the proxy server uses are slightly different to the actua
 1. Clone this repository
 2. Install website dependencies via `npm install` or `yarn`
 3. Start the website with `npm start` or `yarn start`
-4. Navigate into the `/functions` folder
-5. Install server dependencies via `npm install` or `yarn`
-6. Start the proxy server with `npm serve` or `yarn serve`
+4. When the website opens, navigate to the `dev` tab and click `[STORE] USE PROD URL` (this will use the production API, instad of having to run it locally)
 
 ## Bugs / Features
 Feel free to make pull requests for any bugs / features you wish to make known.

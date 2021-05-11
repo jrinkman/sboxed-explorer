@@ -5,6 +5,9 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
+// Components / helpers
+import runtimeConstants from 'helpers/runtimeConstants';
+
 const Root = styled.header`
   display: flex;
   flex-grow: 1;
@@ -28,11 +31,12 @@ const HeaderNavLink = styled(NavLink)`
   user-select: none;
   transition: opacity 100ms ease-out;
   opacity: 0.6;
+  margin-left: 12px;
+  &:first-child {
+    margin-left: 0px;
+  }
   &.active {
     opacity: 1;
-  }
-  &:not(last-child) {
-    margin-right: 12px;
   }
   &:hover {
     opacity: 1;
@@ -100,6 +104,11 @@ function Header() {
         <HeaderNavLink to="/assets/map" activeClassName="active">
           maps
         </HeaderNavLink>
+        {runtimeConstants.isLocal && (
+        <HeaderNavLink to="/dev" activeClassName="active">
+          dev
+        </HeaderNavLink>
+        )}
       </HeaderNav>
     </Root>
   );

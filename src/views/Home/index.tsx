@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import styled from 'styled-components';
 import Background from 'components/Background';
+import ButtonRow from 'components/ButtonRow';
 import Button from 'components/Button';
 
 import logoSvg from 'assets/sbox-brand-light.svg';
@@ -55,14 +56,9 @@ const CreditImage = styled.img`
   margin-right: 15px;
 `;
 
-const Actions = styled.div`
-  display: flex;
+const Actions = styled(ButtonRow)`
   margin-top: 92px;
   padding-bottom: 64px;
-  button {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
 `;
 
 function Home() {
@@ -90,7 +86,7 @@ function Home() {
           <CreditImage src={profileImg} />
           by astrojaxx
         </Credit>
-        <Actions>
+        <Actions marginLeft={5} marginRight={5}>
           <Button onClick={handleChangelogClick}>View Changelog</Button>
           <Button onClick={handleGitHubClick}> View GitHub</Button>
           <Button onClick={handleMenuClick}>Goto Menu</Button>

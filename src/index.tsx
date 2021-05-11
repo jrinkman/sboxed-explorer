@@ -2,22 +2,34 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import './index.css';
+import runtimeConstants from 'helpers/runtimeConstants';
+import { initializeApp } from 'firebase/app';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// Set the base URL to the proxied S&box API URL
-(window as any).axios = axios;
-const isLocal = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+// Define firebase config
+const firebaseConfig = {
+  apiKey: 'AIzaSyCGDzdhCdOCpENl7ziicwos8gB8t-y1GEc',
+  authDomain: 'sbox-api-explorer.firebaseapp.com',
+  projectId: 'sbox-api-explorer',
+  storageBucket: 'sbox-api-explorer.appspot.com',
+  messagingSenderId: '1050786626818',
+  appId: '1:1050786626818:web:5170405557db106505d61b',
+  measurementId: 'G-90RNVBCGCN',
+};
+
+// Initialize firebase
+initializeApp(firebaseConfig);
 
 // Set the API url based on whether we're running locally
-axios.defaults.baseURL = isLocal ?
-  'http://localhost:5001/sbox-api-explorer/us-central1/proxy' :
-  'https://us-central1-sbox-api-explorer.cloudfunctions.net/proxy';
+axios.defaults.baseURL = (runtimeConstants.isLocal && !runtimeConstants.devUseProdApi) ?
+  'http://localhost:5001/sbox-api-explorer/us-central1' :
+  'https://us-central1-sbox-api-explorer.cloudfunctions.net';
 
 // Render the dom
 ReactDOM.render(
   <React.StrictMode>
-    <App isLocal={isLocal} />
+    <App />
   </React.StrictMode>,
   document.getElementById('root'),
 );
