@@ -2,6 +2,8 @@
 
 > A web interface for S&box's API
 
+[Live website](https://sbox-api-explorer.web.app/)
+
 ## Proxy API endpoints
 The API endpoints that the proxy server uses are slightly different to the actual `apix.facepunch.com` ones.
 - **Facepunch API URL** = **Proxy server URL**
