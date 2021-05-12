@@ -15,7 +15,13 @@ const app = express();
 app.use(cors({ origin: ['https://sbox-api-explorer.web.app', 'http://localhost:3000'] }));
 
 // Firebase admin init
-admin.initializeApp();
+if (process.env.FUNCTIONS_EMULATOR) {
+  admin.initializeApp({
+    credential: admin.credential.cert('./.admin-credentials.json'),
+  });
+} else {
+  admin.initializeApp();
+}
 
 // Reusable API promise
 const sboxApi = async (endpoint, res) => {

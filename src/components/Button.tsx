@@ -1,9 +1,19 @@
 import styled from 'styled-components';
 
-export default styled.button`
+interface Props {
+  size?: 'small' | 'medium' | 'large'
+}
+
+const sizeStrings = {
+  small: '10px 20px 10px 20px',
+  medium: '12px 24px 12px 24px',
+  large: '14px 28px 14px 28px',
+};
+
+export default styled.button<Props>`
   color: white;
   font-weight: 700;
-  padding: 12px 24px 12px 24px;
+  padding: ${(props) => sizeStrings[props.size || 'medium']};
   border: 0;
   border-radius: 12px;
   background-color: #00A2FF;
