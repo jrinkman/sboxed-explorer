@@ -51,7 +51,7 @@ function Menu() {
     async function getMenuData(): Promise<void> {
       try {
         // Retireve the API data
-        const { data } = (await axios.get<MenuItem[]>('/proxy/menu'));
+        const { data } = (await axios.get<MenuItem[]>('/menu/index'));
 
         // Update the state
         setMenuItems(data);

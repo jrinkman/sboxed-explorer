@@ -62,7 +62,7 @@ function Assets() {
         setSortBy('recent');
 
         // Load the API data
-        const { data } = await axios.get<AssetResponse>(`/proxy/asset/find/${assetType}`);
+        const { data } = await axios.get<AssetResponse>(`/asset/find?type=${assetType}`);
 
         // Update the state
         if (!cancelPromise) {

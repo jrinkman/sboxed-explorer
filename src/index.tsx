@@ -23,9 +23,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 // Set the API url based on whether we're running locally
-axios.defaults.baseURL = (runtimeConstants.isLocal && !runtimeConstants.devUseProdApi) ?
-  'http://localhost:5001/sbox-api-explorer/us-central1' :
-  'https://us-central1-sbox-api-explorer.cloudfunctions.net';
+axios.defaults.baseURL = 'https://proxy.sboxed.com';
 
 // Render the dom
 ReactDOM.render(

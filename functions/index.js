@@ -29,7 +29,7 @@ const sboxApi = async (endpoint, res) => {
     res.json((await axios.get(endpoint)).data);
   } catch (error) {
     console.error(error);
-    res.sendStatus(500);
+    res.sendStatus(error.response.status);
   }
 };
 
@@ -38,13 +38,10 @@ app.get('/', async (req, res) => {
   res.sendStatus(200);
 });
 
-// Auth router
-// app.use('/auth', authRouter);
-
 // Proxy API endpoints
 app.get('/menu', (req, res) => sboxApi('/menu/index', res));
-app.get('/asset/get/:id', (req, res) => sboxApi(`/asset/get?id=${req.params.id}`, res));
-app.get('/asset/find/:type', (req, res) => sboxApi(`/asset/find?type=${req.params.type}`, res));
+app.get('/asset/get', (req, res) => sboxApi(`/asset/get?id=${req.query.id}`, res));
+app.get('/asset/find', (req, res) => sboxApi(`/asset/find?type=${req.query.type}`, res));
 
 // Expose Express API as a single Cloud Function:
 exports.proxy = functions.https.onRequest(app);
