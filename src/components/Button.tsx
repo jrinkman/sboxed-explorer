@@ -11,6 +11,8 @@ const sizeStrings = {
 };
 
 export default styled.button<Props>`
+  display: flex;
+  align-items: center;
   color: white;
   font-weight: 700;
   padding: ${(props) => sizeStrings[props.size || 'medium']};

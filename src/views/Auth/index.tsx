@@ -10,35 +10,28 @@ function Auth() {
   const history = useHistory();
   const auth = getAuth();
 
-  // Auth state hook
-  const [authError, setAuthError] = useState<string | null>(params.get('failed') ? 'We couldn\'t log you in' : null);
-
   useEffect(() => {
     async function signIn() {
       try {
         // Ensure we're not already signed in
-        if (!auth.currentUser && params.get('token') && !authError) {
+        if (!auth.currentUser && params.get('token')) {
           console.log('Signing in...');
           await signInWithCustomToken(auth, params.get('token') || '');
-
-          // Go back to home
-          history.push('/');
-        } else {
-          setAuthError(auth.currentUser ? 'Already logged in' : 'No token provided');
         }
+
+        // Navigate away
+        history.push('/');
       } catch (error) {
-        // Log the error to the console and update the error state
+        // Log the error to the console and navigate away
         console.error(error);
-        setAuthError(error.message);
+        history.push('/');
       }
     }
 
     // Start the sign in process
     signIn();
   }, []);
-
-  if (authError) return <Message title="Authentication Error" subtitle={authError} paddingBottom />;
-  return <Loader message="Authenticating" paddingBottom />;
+  return <Loader message="Authenticating" />;
 }
 
 export default Auth;

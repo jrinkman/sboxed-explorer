@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Link,
   NavLink,
 } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
+import { User } from 'firebase/auth';
 
 // Components / helpers
+import Button from 'components/Button';
+import Avatar from 'components/Avatar';
 import runtimeConstants from 'helpers/runtimeConstants';
+import steamLogo from 'assets/steam.svg';
 
 const Root = styled.header`
   display: flex;
@@ -19,6 +24,7 @@ const Root = styled.header`
 
 const HeaderNav = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const HeaderNavLink = styled(NavLink)`
@@ -41,6 +47,12 @@ const HeaderNavLink = styled(NavLink)`
   &:hover {
     opacity: 1;
   }
+`;
+
+const HeaderNavAuth = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
 `;
 
 const HeaderLogo = styled.div`
@@ -79,7 +91,24 @@ const HeaderLogoLink = styled(Link)`
   }
 `;
 
-function Header() {
+const ButtonLogo = styled.img`
+  width: 22px;
+  height: 22px;
+  margin-right: 12px;
+`;
+
+interface Props {
+  user: User | null;
+}
+
+function Header(props: Props) {
+  const { user } = props;
+
+  // Callback for signing in
+  const onSignInClick = () => {
+    window.location.replace(`${axios.defaults.baseURL}/auth`);
+  };
+
   return (
     <Root>
       <HeaderLogo>
@@ -109,6 +138,10 @@ function Header() {
           dev
         </HeaderNavLink>
         )}
+        <HeaderNavAuth>
+          {user ? <Avatar onClick={() => console.log('lol')} src={user.photoURL || ''} alt="Profile Image" /> :
+          <Button onClick={onSignInClick} size="small"><ButtonLogo src={steamLogo} alt="steam logo" />Sign In</Button>}
+        </HeaderNavAuth>
       </HeaderNav>
     </Root>
   );

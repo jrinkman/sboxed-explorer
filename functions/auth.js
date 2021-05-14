@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const axios = require('axios').default;
 const express = require('express');
 const passport = require('passport');
 const SteamStrategy = require('passport-steam');
@@ -16,12 +17,14 @@ async function getUser(uid) {
   } catch (error) { return null; }
 }
 
+const { key: steamApiKey } = functions.config().steam;
+
 // Setup passport with the steam provider
 passport.use(
   new SteamStrategy({
     returnURL: realmCallback,
     realm,
-    apiKey: functions.config().steam.key,
+    apiKey: steamApiKey,
   },
   async (id, profile, done) => {
     const { _json: user } = profile;
@@ -39,6 +42,7 @@ passport.use(
           photoURL: user.avatarfull,
         });
       } else {
+        // Check whether profile data has been updated
         const differentName = existingUser.displayName !== user.personaname;
         const differentAvatar = existingUser.photoURL !== user.avatarfull;
 
@@ -51,6 +55,10 @@ passport.use(
           });
         }
       }
+
+      // Determine whether we have sbox installed
+      // const accountGames = await axios.get(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${steamApiKey}&steamid=${user.steamid}&format=json`);
+      // console.log(accountGames.data);
 
       // Create a token for the user
       console.log('Generating user token...');
@@ -69,11 +77,16 @@ const router = express.Router();
 
 router.use(passport.initialize());
 router.get('/', passport.authenticate('steam'));
+// router.get('/', (req, res, next) => {
+//   passport.authenticate('steam', { state: req.params.redirect })(req, res, next);
+// });
+
 router.get('/callback',
   (req, res, next) => {
     passport.authenticate('steam', {}, (token) => {
+      // If no token present, redirect from auth
       if (!token) {
-        res.redirect(`${returnURL}/auth?failed=true`);
+        res.redirect(returnURL);
       }
 
       // Redirect the user to authenticate with firebase token

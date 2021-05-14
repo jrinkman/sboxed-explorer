@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import './index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
 import runtimeConstants from 'helpers/runtimeConstants';
+import GlobalStyle from 'helpers/globalStyle';
 import { initializeApp } from 'firebase/app';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -29,7 +30,10 @@ axios.defaults.baseURL = (runtimeConstants.isLocal && !runtimeConstants.devUsePr
 // Render the dom
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <GlobalStyle />
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root'),
 );

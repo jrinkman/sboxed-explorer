@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/Button';
-import ButtonGroup from 'components/ButtonGroup';
 import ButtonRow from 'components/ButtonRow';
 import { getAuth, signOut } from 'firebase/auth';
 import axios from 'axios';
@@ -26,6 +25,7 @@ const Code = styled.code`
   color: white;
   margin-top: 12px;
   margin-bottom: 24px;
+  padding-bottom: 12px;
 `;
 
 function Dev() {
@@ -53,18 +53,6 @@ function Dev() {
 
   return (
     <Root>
-      <ButtonGroup
-        options={['one']}
-        onChange={(val) => console.log(val)}
-      />
-      <ButtonGroup
-        options={['one', 'two']}
-        onChange={(val) => console.log(val)}
-      />
-      <ButtonGroup
-        options={['one', 'two', 'three']}
-        onChange={(val) => console.log(val)}
-      />
       <Text>DEV USE PROD API: {localStorage.getItem('dev-useProdApi') ? 'YES' : 'NO'}</Text>
       <ButtonRow marginRight={10}>
         <Button size="small" onClick={() => onToggleStore('dev-useProdApi')}>[Store] Use Prod URL</Button>
@@ -74,7 +62,7 @@ function Dev() {
       <ButtonRow marginRight={10}>
         <Button size="small" onClick={onSignInClick}>Sign In</Button>
         <Button size="small" onClick={onSignOutClick}>Sign Out</Button>
-        <Button size="small" onClick={() => history.push('/auth')}>Goto Auth</Button>
+        <Button size="small" onClick={() => history.push('/auth?redirect=/assets/gamemode/facepunch.pool')}>Goto Auth</Button>
       </ButtonRow>
     </Root>
   );

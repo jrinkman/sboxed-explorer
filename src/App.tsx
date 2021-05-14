@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
-  Link,
-  NavLink,
   Route,
   Redirect,
+  useLocation,
 } from 'react-router-dom';
 import styled from 'styled-components';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 
-// Runtime constants
+// Runtime constants & components
+import Loader from 'components/Loader';
 import runtimeConstants from 'helpers/runtimeConstants';
 
 // Views
@@ -32,9 +32,18 @@ const Main = styled.main`
 `;
 
 function App() {
+  const [authUser, setAuthUser] = useState<User | null | undefined>(undefined);
+
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    const unsub = onAuthStateChanged(getAuth(), (user) => setAuthUser(user));
+    return () => unsub();
+  }, []);
+
+  if (authUser === undefined) return <Loader />;
   return (
-    <Router>
-      <Header />
+    <>
+      {useLocation().pathname !== '/auth' && <Header user={authUser} />}
       <Main>
         <Switch>
           <Route path="/auth">
@@ -63,7 +72,7 @@ function App() {
           <Redirect to="/" />
         </Switch>
       </Main>
-    </Router>
+    </>
   );
 }
 
