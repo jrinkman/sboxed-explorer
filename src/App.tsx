@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Switch,
   Route,
   Redirect,
-  useLocation,
 } from 'react-router-dom';
 import styled from 'styled-components';
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
-
-// Runtime constants & components
-import Loader from 'components/Loader';
-import runtimeConstants from 'helpers/runtimeConstants';
 
 // Views
 import Home from 'views/Home';
@@ -18,8 +12,6 @@ import Menu from 'views/Menu';
 import Changelog from 'views/Changelog';
 import Assets from 'views/Assets';
 import AssetInfo from 'views/AssetInfo';
-import Auth from 'views/Auth';
-import Dev from 'views/Dev';
 
 // Header component
 import Header from './Header';
@@ -32,23 +24,11 @@ const Main = styled.main`
 `;
 
 function App() {
-  const [authUser, setAuthUser] = useState<User | null | undefined>(undefined);
-
-  // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    const unsub = onAuthStateChanged(getAuth(), (user) => setAuthUser(user));
-    return () => unsub();
-  }, []);
-
-  if (authUser === undefined) return <Loader />;
   return (
     <>
-      {useLocation().pathname !== '/auth' && <Header user={authUser} />}
+      <Header />
       <Main>
         <Switch>
-          <Route path="/auth">
-            <Auth />
-          </Route>
           <Route path="/menu">
             <Menu />
           </Route>
@@ -61,11 +41,6 @@ function App() {
           <Route path="/changelog">
             <Changelog />
           </Route>
-          {runtimeConstants.isLocal && (
-            <Route path="/dev">
-              <Dev />
-            </Route>
-          )}
           <Route path="/">
             <Home />
           </Route>

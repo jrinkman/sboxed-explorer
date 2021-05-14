@@ -1,17 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Link,
   NavLink,
 } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
-import { User } from 'firebase/auth';
-
-// Components / helpers
-import Button from 'components/Button';
-import Avatar from 'components/Avatar';
-import runtimeConstants from 'helpers/runtimeConstants';
-import steamLogo from 'assets/steam.svg';
 
 const Root = styled.header`
   display: flex;
@@ -49,10 +41,33 @@ const HeaderNavLink = styled(NavLink)`
   }
 `;
 
-const HeaderNavAuth = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 20px;
+const HeaderNavAnchor = styled.a`
+  height: 100%;
+  color: white;
+  letter-spacing: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  user-select: none;
+  transition: opacity 100ms ease-out;
+  opacity: 0.6;
+  margin-left: 12px;
+  &.active {
+    opacity: 1;
+  }
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+const HeaderNavSpacer = styled.div`
+  background-color: white;
+  opacity: 0.8;
+  height: 15px;
+  width: 5px;
+  border-radius: 2px;
+  margin-left: 15px;
+  margin-right: 5px;
 `;
 
 const HeaderLogo = styled.div`
@@ -91,24 +106,7 @@ const HeaderLogoLink = styled(Link)`
   }
 `;
 
-const ButtonLogo = styled.img`
-  width: 22px;
-  height: 22px;
-  margin-right: 12px;
-`;
-
-interface Props {
-  user: User | null;
-}
-
-function Header(props: Props) {
-  const { user } = props;
-
-  // Callback for signing in
-  const onSignInClick = () => {
-    window.location.replace(`${axios.defaults.baseURL}/auth`);
-  };
-
+function Header() {
   return (
     <Root>
       <HeaderLogo>
@@ -117,7 +115,7 @@ function Header(props: Props) {
           <span>api explorer</span>
         </HeaderLogoLink>
         <HeaderLogoLink to="/changelog">
-          <span className="version">v1.3.5</span>
+          <span className="version">v1.4</span>
         </HeaderLogoLink>
       </HeaderLogo>
       <HeaderNav>
@@ -133,15 +131,10 @@ function Header(props: Props) {
         <HeaderNavLink to="/assets/map" activeClassName="active">
           maps
         </HeaderNavLink>
-        {runtimeConstants.isLocal && (
-        <HeaderNavLink to="/dev" activeClassName="active">
-          dev
-        </HeaderNavLink>
-        )}
-        <HeaderNavAuth>
-          {user ? <Avatar onClick={() => console.log('lol')} src={user.photoURL || ''} alt="Profile Image" /> :
-          <Button onClick={onSignInClick} size="small"><ButtonLogo src={steamLogo} alt="steam logo" />Sign In</Button>}
-        </HeaderNavAuth>
+        <HeaderNavSpacer />
+        <HeaderNavAnchor href="https://github.com/jrinkman/sboxed-explorer">
+          github
+        </HeaderNavAnchor>
       </HeaderNav>
     </Root>
   );

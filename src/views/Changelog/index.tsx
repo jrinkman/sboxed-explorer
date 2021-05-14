@@ -33,6 +33,20 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.4',
+    subtitle: 'New proxy server and re-brand',
+    changes: [
+      'New, better URL - explorer.sboxed.com',
+      'Now uses the better & publically available sboxed-proxy server',
+      'Updated page title to include version number',
+      'Changed name from S&box API Explorer to S&boxed API Explorer',
+      'Renamed home buttons & added new GitHub link in header',
+      'Stripped all firebase / authentication code',
+      'Removed old backend proxy code',
+      'General code cleanup & fixes, tweaks',
+    ],
+  },
+  {
     version: 'v1.3.5',
     subtitle: 'Asset information page fixes',
     changes: [

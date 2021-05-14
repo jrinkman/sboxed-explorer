@@ -1,10 +1,9 @@
 {
-  "name": "sbox-api-explorer",
+  "name": "sboxed-explorer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
-    "firebase": "9.0.0-beta.1",
     "luxon": "^1.26.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -39,10 +38,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "yarn build && firebase deploy",
-    "deploy:hosting": "yarn build && firebase deploy --only hosting",
-    "deploy:functions": "firebase deploy --only functions"
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [

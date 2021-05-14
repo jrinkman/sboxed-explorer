@@ -147,17 +147,21 @@ function Info() {
   if (assetInfoError) {
     return <Message title="An error occured" subtitle="Looks like we couldn't find anything." paddingBottom />;
   }
+
+  // If we haven't recieved any API data, return the loader
   if (!assetInfo) return <Loader paddingBottom />;
   const { asset } = assetInfo;
 
   // Format the date number to a string
   const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('d LLL h:mm a');
 
+  // Handle 'open' button clicks
   const handleOpenClick = () => {
     window.open('steam://run/590830');
     window.focus();
   };
 
+  // Handle 'back' button clicks
   const handleBackClick = () => {
     const path = history.location.pathname;
     history.push(path.substring(0, path.lastIndexOf('/')));

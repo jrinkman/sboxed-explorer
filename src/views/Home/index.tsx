@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import styled from 'styled-components';
 import Background from 'components/Background';
@@ -37,6 +37,7 @@ const Credit = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 92px;
   color: white;
   font-weight: 500;
   font-size: 1.4rem;
@@ -56,11 +57,6 @@ const CreditImage = styled.img`
   margin-right: 15px;
 `;
 
-const Actions = styled(ButtonRow)`
-  margin-top: 92px;
-  padding-bottom: 64px;
-`;
-
 function Home() {
   const history = useHistory();
 
@@ -73,7 +69,7 @@ function Home() {
   };
 
   const handleGitHubClick = () => {
-    window.open('https://github.com/jrinkman/sbox-api-explorer');
+    window.open('https://github.com/jrinkman/sboxed-explorer');
   };
 
   return (
@@ -82,15 +78,14 @@ function Home() {
       <Root>
         <LogoSvg src={logoSvg} />
         <Header>API Explorer</Header>
-        <Credit href="https://steamcommunity.com/profiles/76561198161943355/">
+        <Credit href="https://steamcommunity.com/profiles/76561198161943355/" target="_blank">
           <CreditImage src={profileImg} />
           by astrojaxx
         </Credit>
-        <Actions marginLeft={5} marginRight={5}>
-          <Button onClick={handleChangelogClick}>View Changelog</Button>
-          <Button onClick={handleGitHubClick}> View GitHub</Button>
+        <ButtonRow style={{ paddingBottom: '64px' }} marginLeft={5} marginRight={5}>
+          <Button onClick={handleChangelogClick}>Goto Changelog</Button>
           <Button onClick={handleMenuClick}>Goto Menu</Button>
-        </Actions>
+        </ButtonRow>
       </Root>
     </>
   );
