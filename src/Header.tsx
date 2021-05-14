@@ -132,7 +132,7 @@ function Header() {
           maps
         </HeaderNavLink>
         <HeaderNavSpacer />
-        <HeaderNavAnchor href="https://github.com/jrinkman/sboxed-explorer">
+        <HeaderNavAnchor href="https://github.com/jrinkman/sboxed-explorer" target="_blank">
           github
         </HeaderNavAnchor>
       </HeaderNav>
