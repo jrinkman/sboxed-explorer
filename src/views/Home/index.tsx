@@ -57,6 +57,27 @@ const CreditImage = styled.img`
   margin-right: 15px;
 `;
 
+const BottomLink = styled.div`
+  padding-bottom: 64px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  cursor: default;
+  user-select: none;
+  margin-top: 14px;
+  .link {
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    opacity: 0.6;
+    user-select: none;
+    transition: opacity 100ms ease-out;
+    &:hover {
+      opacity: 1;
+    }
+  }
+`;
+
 function Home() {
   const history = useHistory();
 
@@ -68,24 +89,23 @@ function Home() {
     history.push('/menu');
   };
 
-  const handleGitHubClick = () => {
-    window.open('https://github.com/jrinkman/sboxed-explorer');
-  };
-
   return (
     <>
       <Background background="https://files.facepunch.com/garry/520632a2-e9d1-43c3-a51f-b059a73e407d.jpg" />
       <Root>
         <LogoSvg src={logoSvg} />
         <Header>API Explorer</Header>
-        <Credit href="https://steamcommunity.com/profiles/76561198161943355/" target="_blank">
+        <Credit href="https://steamcommunity.com/profiles/76561198161943355/" target="_blank" rel="noreferrer">
           <CreditImage src={profileImg} />
           by astrojaxx
         </Credit>
-        <ButtonRow style={{ paddingBottom: '64px' }} marginLeft={5} marginRight={5}>
+        <ButtonRow marginLeft={5} marginRight={5}>
           <Button onClick={handleChangelogClick}>Goto Changelog</Button>
           <Button onClick={handleMenuClick}>Goto Menu</Button>
         </ButtonRow>
+        <BottomLink>
+          This project uses <a className="link" href="https://github.com/jrinkman/sboxed-proxy" target="_blank" rel="noreferrer">sboxed-proxy</a>
+        </BottomLink>
       </Root>
     </>
   );
