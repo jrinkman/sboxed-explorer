@@ -64,7 +64,7 @@ function Assets() {
 
   useEffect(() => {
     let cancelPromise: boolean = false;
-    async function getMenuData(): Promise<void> {
+    async function getAssets(): Promise<void> {
       try {
         // Reset the state in the case that we're navigating to the same route
         if (assets) setAssets(null);
@@ -84,11 +84,9 @@ function Assets() {
       }
     }
 
-    getMenuData();
-
-    return () => {
-      cancelPromise = true;
-    };
+    // Make the API call
+    getAssets();
+    return () => { cancelPromise = true; };
   }, [assetType]);
 
   if (assetError) return <Message title="An error occured" subtitle="Check the console for more details." paddingBottom />;

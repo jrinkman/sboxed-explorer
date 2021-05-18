@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
+import Chip from 'components/Chip';
 import pkgTypeString from 'helpers/pkgTypeString';
 import missingAssetThumb from 'assets/missing.png';
 
@@ -57,18 +58,6 @@ const Image = styled.div<CardProps>`
 
 `;
 
-const Chip = styled.div`
-  color: white;
-  padding: 6px 8px 6px 8px;
-  border-radius: 16px;
-  font-weight: 700;
-  font-size: 0.75rem;
-  background-color: rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
-  cursor: default;
-  user-select: none;
-`;
-
 const Title = styled.span`
   color: white;
   font-weight: 700;
@@ -111,7 +100,7 @@ function MenuCard(props: Props) {
   return (
     <Root onClick={handleClick}>
       <Image className="thumb" thumbnail={asset.thumb || missingAssetThumb}>
-        <Chip>{asset.org.title}</Chip>
+        <Chip fontSize="0.75rem">{asset.org.title}</Chip>
       </Image>
       <Title>{asset.title}</Title>
       <Date>{pkgString} - Updated {dateString}</Date>

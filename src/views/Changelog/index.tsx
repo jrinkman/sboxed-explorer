@@ -33,6 +33,14 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.5.1',
+    subtitle: 'Asset config & small fixes',
+    changes: [
+      'Asset configurations are now displayed on the asset info page if present',
+      'Fixed a small issue with search filters still being set after navigation',
+    ],
+  },
+  {
     version: 'v1.5',
     subtitle: 'Searching, scott\'s map viewer & more',
     changes: [

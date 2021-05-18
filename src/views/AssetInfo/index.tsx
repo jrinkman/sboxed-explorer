@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import { ExternalLink } from 'react-feather';
 import axios from 'axios';
 import styled from 'styled-components';
 import prettyBytes from 'pretty-bytes';
+import pkgTypeString from 'helpers/pkgTypeString';
+
+// Components import
+import Chip from 'components/Chip';
+import LabelChip from 'components/LabelChip';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Button from 'components/Button';
 import Background from 'components/Background';
-import pkgTypeString from 'helpers/pkgTypeString';
 
 interface AssetInfo {
   asset: {
@@ -35,7 +39,13 @@ interface AssetInfo {
       size?: number;
     };
     updated: number;
-    config: {} | null;
+    config: {
+      showMapSelect: boolean;
+      defaultMap: string;
+      maxPlayers: 36;
+      minPlayers: 1;
+      clientDownloadShared: boolean;
+    } | null;
   }
 }
 
@@ -69,7 +79,7 @@ const Header = styled.div`
 
 const Subheader = styled.span`
   color: white;
-  opacity: 0.6;
+  opacity: 0.7;
   font-weight: 400;
   font-size: 1.5rem;
   max-width: 600px;
@@ -108,17 +118,19 @@ const InfoLink = styled.a<InfoLinkProps>`
   }
 `;
 
-const Chip = styled.div`
-  color: white;
-  padding: 6px 8px 6px 8px;
-  border-radius: 16px;
-  font-weight: 700;
-  font-size: 1rem;
-  background-color: rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
-  cursor: default;
-  user-select: none;
-  margin-left: 10px;
+const MapLink = styled(Link)`
+  text-decoration: none;
+  transition: opacity 100ms ease-out;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
+const Config = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin-top: 15px;
 `;
 
 const Actions = styled.div`
@@ -131,7 +143,7 @@ const LinkIcon = styled(ExternalLink)`
   margin-right: 12px;
 `;
 
-interface InfoRouteParams {
+interface RouteParams {
   id: string;
   type: string;
 }
@@ -139,16 +151,23 @@ interface InfoRouteParams {
 function Info() {
   const [assetInfo, setAssetInfo] = useState<AssetInfo | null>(null);
   const [assetInfoError, setAssetInfoError] = useState<Error | null>(null);
-  const { id, type } = useParams<InfoRouteParams>();
+  const { id, type } = useParams<RouteParams>();
   const history = useHistory();
 
   useEffect(() => {
-    async function getMenuData(): Promise<void> {
+    let cancelPromise: boolean = false;
+    async function getAssetInfo(): Promise<void> {
       try {
+        // Reset the state in the case that we're navigating to the same route
+        if (assetInfo) setAssetInfo(null);
+
         // Load the data from the API
         const { data } = (await axios.get<AssetInfo>(`/asset/get?id=${id}`));
 
         // Update the state
+        if (!cancelPromise) {
+          setAssetInfo(data);
+        }
         setAssetInfo(data);
       } catch (error) {
         console.error(error);
@@ -156,8 +175,10 @@ function Info() {
       }
     }
 
-    getMenuData();
-  }, []);
+    // Make the API call
+    getAssetInfo();
+    return () => { cancelPromise = true; };
+  }, [id]);
 
   if (assetInfoError) {
     return <Message title="An error occured" subtitle="Looks like we couldn't find anything." paddingBottom />;
@@ -171,10 +192,6 @@ function Info() {
   const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('d LLL h:mm a');
 
   // Handle 'open' button clicks
-  // const handleOpenClick = () => {
-  //   window.open('steam://run/590830');
-  //   window.focus();
-  // };
   const handleMapViewClick = () => {
     window.open(`https://maps.sbox.gg/noclip/${id}`, '_blank');
   };
@@ -185,8 +202,6 @@ function Info() {
     history.push(path.substring(0, path.lastIndexOf('/')));
   };
 
-  console.log(assetInfo.asset.config, assetInfo.asset.download);
-
   return (
     <>
       <Background background={asset.background} />
@@ -194,13 +209,22 @@ function Info() {
         <Header>
           <img className="logo" src={asset.org.thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
           <h1>{asset.title}</h1>
-          <Chip>{pkgTypeString(asset.packageType)}</Chip>
-          <Chip>{asset.download.type.toUpperCase()}{asset.download.type === 'upload' && ` - ${prettyBytes(asset.download.size || 0)}`}</Chip>
+          <Chip marginLeft={10}>{pkgTypeString(asset.packageType)}</Chip>
+          <Chip marginLeft={10}>{asset.download.type.toUpperCase()}{asset.download.type === 'upload' && ` - ${prettyBytes(asset.download.size || 0)}`}</Chip>
         </Header>
         <Date>
           By {asset.org.title},
           {' '} Updated {dateString}
         </Date>
+        {asset.config && (
+        <Config>
+          <MapLink to={`/assets/map/${asset.config.defaultMap}`}><LabelChip label="default map" text={asset.config.defaultMap} /></MapLink>
+          <LabelChip label="min players" text={asset.config.minPlayers.toString()} />
+          <LabelChip label="max players" text={asset.config.maxPlayers.toString()} />
+          <LabelChip label="show map select" text={asset.config.showMapSelect.toString()} />
+          <LabelChip label="client download shared" text={asset.config.clientDownloadShared.toString()} />
+        </Config>
+        )}
         <Subheader>{asset.summary || 'No summary provided'}</Subheader>
         <InfoLink href={asset.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
         <InfoLink href={asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
