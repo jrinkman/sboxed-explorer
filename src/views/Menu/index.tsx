@@ -43,7 +43,11 @@ const Section = styled.section`
 const SectionHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+`;
+
+const SectionActions = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 function Menu() {
@@ -82,25 +86,29 @@ function Menu() {
             <div>
               <Heading title={item.title} subtitle={item.description} />
             </div>
-            <Search
-              placeholder="Enter filter (e.g. 'Sandbox')"
-              onChange={(e) => {
-                setMenuFilter({
-                  ...menuFilter,
-                  [item.title]: e.target.value,
-                });
-              }}
-            />
-            <ButtonGroup
-              label="Sort By"
-              options={['recent', 'alphabetical', 'creator']}
-              onChange={(sort) => {
-                setMenuSort({
-                  ...menuSort,
-                  [item.title]: sort,
-                });
-              }}
-            />
+            <SectionActions>
+              <ButtonGroup
+                label="Sort By"
+                options={['recent', 'alphabetical', 'creator']}
+                onChange={(sort) => {
+                  setMenuSort({
+                    ...menuSort,
+                    [item.title]: sort,
+                  });
+                }}
+              />
+              <Search
+                placeholder="Enter filter (e.g. 'Sandbox')"
+                marginTop={5}
+                width={340}
+                onChange={(e) => {
+                  setMenuFilter({
+                    ...menuFilter,
+                    [item.title]: e.target.value,
+                  });
+                }}
+              />
+            </SectionActions>
           </SectionHeader>
           <div className="packages">
             {item.packages.filter(assetSearch(menuFilter[item.title])).sort(assetFuncs[menuSort[item.title] || 'recent']).map((asset) => <AssetCard key={asset.ident} asset={asset} />)}

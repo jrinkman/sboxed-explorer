@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 interface StyleProps {
   marginTop?: number;
-  width?: string;
+  width?: number;
 }
 
 const Input = styled.input<StyleProps>`
   display: flex;
   margin-top: ${(props) => (props.marginTop || 0)}px;
-  width: 240px;
+  width: ${(props) => (props.width || 220)}px;
   height: 33px;
   border-radius: 20px;
   padding-left: 10px;
@@ -34,10 +34,13 @@ const Input = styled.input<StyleProps>`
 interface Props {
   placeholder?: string;
   marginTop?: number;
+  width?: number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export default function Search(props: Props) {
-  const { placeholder, marginTop, onChange } = props;
-  return <Input type="text" placeholder={placeholder} marginTop={marginTop} onChange={onChange} />;
+  const {
+    placeholder, marginTop, width, onChange,
+  } = props;
+  return <Input type="text" placeholder={placeholder} marginTop={marginTop} width={width} onChange={onChange} />;
 }

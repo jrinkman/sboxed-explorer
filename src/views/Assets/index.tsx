@@ -44,7 +44,11 @@ const Section = styled.section`
 const SectionHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+`;
+
+const SectionActions = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 interface RouteParams {
@@ -65,6 +69,7 @@ function Assets() {
         // Reset the state in the case that we're navigating to the same route
         if (assets) setAssets(null);
         setSortBy('recent');
+        setFilter('');
 
         // Load the API data
         const { data } = await axios.get<AssetResponse>(`/asset/find?type=${assetType}`);
@@ -104,15 +109,19 @@ function Assets() {
               subtitle={`Retrieved ${assets.assets.length} ${assetTypeName}s from the API`}
             />
           </div>
-          <Search
-            placeholder="Enter filter (e.g. 'Sandbox')"
-            onChange={(e) => setFilter(e.target.value)}
-          />
-          <ButtonGroup
-            label="Sort By"
-            options={['recent', 'alphabetical', 'creator']}
-            onChange={(sort) => setSortBy(sort)}
-          />
+          <SectionActions>
+            <ButtonGroup
+              label="Sort By"
+              options={['recent', 'alphabetical', 'creator']}
+              onChange={(sort) => setSortBy(sort)}
+            />
+            <Search
+              width={340}
+              marginTop={5}
+              placeholder="Enter filter (e.g. 'Sandbox')"
+              onChange={(e) => setFilter(e.target.value)}
+            />
+          </SectionActions>
         </SectionHeader>
         <div className="packages">
           {filteredAssets.sort(assetFuncs[sortBy]).map(
