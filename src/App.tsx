@@ -20,7 +20,7 @@ const Main = styled.main`
   display: flex;
   flex: 1 1 auto;
   min-height: 0;
-  overflow: auto;
+  overflow-y: auto;
 `;
 
 function App() {

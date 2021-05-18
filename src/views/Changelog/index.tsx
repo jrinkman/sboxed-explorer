@@ -33,6 +33,18 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.5',
+    subtitle: 'Searching, scott\'s map viewer & more',
+    changes: [
+      'You can now filter assets by search within the menu, modes & maps pages',
+      'On map asset info pages, a \'scott\'s map viewer\' button is now visible',
+      'Removed the disabled \'open in s&box\' button from asset info pages',
+      'Asset info descriptions now display correctly',
+      'Assets now download correctly',
+      'Download types & sizes are now displayed on the Asset info page',
+    ],
+  },
+  {
     version: 'v1.4',
     subtitle: 'New proxy server and re-brand',
     changes: [

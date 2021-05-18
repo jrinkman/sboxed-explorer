@@ -5,8 +5,12 @@ import AssetCard, { Asset } from 'components/AssetCard';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Heading from 'components/Heading';
+import Search from 'components/Search';
 import ButtonGroup from 'components/ButtonGroup';
-import assetSortFuncs from 'helpers/assetSortFuncs';
+
+// Asset sorting & searching functions
+import assetFuncs from 'helpers/assetFuncs';
+import assetSearch from 'helpers/assetSearch';
 
 interface MenuItem {
   title: string;
@@ -45,6 +49,7 @@ const SectionHeader = styled.div`
 function Menu() {
   const [menuItems, setMenuItems] = useState<MenuItem[] | null>(null);
   const [menuSort, setMenuSort] = useState<{[key: string]: string}>({});
+  const [menuFilter, setMenuFilter] = useState<{[key: string]: string | undefined}>({});
   const [menuError, setMenuError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -71,25 +76,34 @@ function Menu() {
 
   return (
     <Root>
-      {menuItems.map((menuItem) => (
-        <Section key={menuItem.title}>
+      {menuItems.map((item) => (
+        <Section key={item.title}>
           <SectionHeader>
             <div>
-              <Heading title={menuItem.title} subtitle={menuItem.description} />
+              <Heading title={item.title} subtitle={item.description} />
             </div>
+            <Search
+              placeholder="Enter filter (e.g. 'Sandbox')"
+              onChange={(e) => {
+                setMenuFilter({
+                  ...menuFilter,
+                  [item.title]: e.target.value,
+                });
+              }}
+            />
             <ButtonGroup
               label="Sort By"
               options={['recent', 'alphabetical', 'creator']}
               onChange={(sort) => {
                 setMenuSort({
                   ...menuSort,
-                  [menuItem.title]: sort,
+                  [item.title]: sort,
                 });
               }}
             />
           </SectionHeader>
           <div className="packages">
-            {menuItem.packages.sort(assetSortFuncs[menuSort[menuItem.title] || 'recent']).map((asset) => <AssetCard key={asset.ident} asset={asset} />)}
+            {item.packages.filter(assetSearch(menuFilter[item.title])).sort(assetFuncs[menuSort[item.title] || 'recent']).map((asset) => <AssetCard key={asset.ident} asset={asset} />)}
           </div>
         </Section>
       ))}

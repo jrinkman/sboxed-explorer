@@ -3,12 +3,16 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import Card, { Asset } from 'components/AssetCard';
+import Search from 'components/Search';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Heading from 'components/Heading';
 import ButtonGroup from 'components/ButtonGroup';
 import pkgTypeString from 'helpers/pkgTypeString';
-import assetSortFuncs from 'helpers/assetSortFuncs';
+
+// Asset sorting & searching functions
+import assetFuncs from 'helpers/assetFuncs';
+import assetSearch from 'helpers/assetSearch';
 
 interface AssetResponse {
   type: number;
@@ -51,6 +55,7 @@ function Assets() {
   const [assets, setAssets] = useState<AssetResponse | null>(null);
   const [assetError, setAssetError] = useState<Error | null>(null);
   const [sortBy, setSortBy] = useState<string>('recent');
+  const [filter, setFilter] = useState<string>('');
   const { type: assetType } = useParams<RouteParams>();
 
   useEffect(() => {
@@ -85,7 +90,7 @@ function Assets() {
   if (!assets) return <Loader paddingBottom />;
 
   // Sort functions
-  assets.assets = assets.assets.sort(assetSortFuncs[sortBy]);
+  const filteredAssets = assets.assets.filter(assetSearch(filter));
 
   // Get the display name of the package type
   const assetTypeName = pkgTypeString(assets.type);
@@ -99,6 +104,10 @@ function Assets() {
               subtitle={`Retrieved ${assets.assets.length} ${assetTypeName}s from the API`}
             />
           </div>
+          <Search
+            placeholder="Enter filter (e.g. 'Sandbox')"
+            onChange={(e) => setFilter(e.target.value)}
+          />
           <ButtonGroup
             label="Sort By"
             options={['recent', 'alphabetical', 'creator']}
@@ -106,7 +115,9 @@ function Assets() {
           />
         </SectionHeader>
         <div className="packages">
-          {assets.assets.map((asset) => <Card key={asset.ident} asset={asset} />)}
+          {filteredAssets.sort(assetFuncs[sortBy]).map(
+            (asset) => <Card key={asset.ident} asset={asset} />,
+          )}
         </div>
       </Section>
     </Root>

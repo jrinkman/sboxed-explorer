@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
+import { ExternalLink } from 'react-feather';
 import axios from 'axios';
 import styled from 'styled-components';
+import prettyBytes from 'pretty-bytes';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Button from 'components/Button';
@@ -26,8 +28,14 @@ interface AssetInfo {
     thumb: string;
     background: string;
     packageType: number;
-    downloadUrl: string;
+    download: {
+      type: string;
+      url: string;
+      crc?: number;
+      size?: number;
+    };
     updated: number;
+    config: {} | null;
   }
 }
 
@@ -49,6 +57,7 @@ const Header = styled.div`
     color: white;
     font-size: 2.5rem;
     margin: 0;
+    margin-right: 10px;
   }
   & .logo {
     width: 50px;
@@ -71,7 +80,7 @@ const Description = styled.span`
   color: white;
   opacity: 0.9;
   font-size: 1rem;
-  white-space: pre;
+  white-space: pre-wrap;
   min-height: 25px;
   margin-top: 45px;
   margin-bottom: 45px;
@@ -117,14 +126,20 @@ const Actions = styled.div`
   padding-bottom: 40px;
 `;
 
+const LinkIcon = styled(ExternalLink)`
+  margin-bottom: 2px;
+  margin-right: 12px;
+`;
+
 interface InfoRouteParams {
   id: string;
+  type: string;
 }
 
 function Info() {
   const [assetInfo, setAssetInfo] = useState<AssetInfo | null>(null);
   const [assetInfoError, setAssetInfoError] = useState<Error | null>(null);
-  const { id } = useParams<InfoRouteParams>();
+  const { id, type } = useParams<InfoRouteParams>();
   const history = useHistory();
 
   useEffect(() => {
@@ -156,9 +171,12 @@ function Info() {
   const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('d LLL h:mm a');
 
   // Handle 'open' button clicks
-  const handleOpenClick = () => {
-    window.open('steam://run/590830');
-    window.focus();
+  // const handleOpenClick = () => {
+  //   window.open('steam://run/590830');
+  //   window.focus();
+  // };
+  const handleMapViewClick = () => {
+    window.open(`https://maps.sbox.gg/noclip/${id}`, '_blank');
   };
 
   // Handle 'back' button clicks
@@ -166,6 +184,8 @@ function Info() {
     const path = history.location.pathname;
     history.push(path.substring(0, path.lastIndexOf('/')));
   };
+
+  console.log(assetInfo.asset.config, assetInfo.asset.download);
 
   return (
     <>
@@ -175,6 +195,7 @@ function Info() {
           <img className="logo" src={asset.org.thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
           <h1>{asset.title}</h1>
           <Chip>{pkgTypeString(asset.packageType)}</Chip>
+          <Chip>{asset.download.type.toUpperCase()}{asset.download.type === 'upload' && ` - ${prettyBytes(asset.download.size || 0)}`}</Chip>
         </Header>
         <Date>
           By {asset.org.title},
@@ -185,17 +206,27 @@ function Info() {
         <InfoLink href={asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
         <Description>{asset.description}</Description>
         <Actions>
-          <Button
+          {/* <Button
             disabled
             style={{ marginRight: 10 }}
             onClick={handleOpenClick}
           >
             Open in s&box
+          </Button> */}
+          {type === 'map' && (
+          <Button
+            disabled={assetInfo.asset.packageType !== 1}
+            style={{ marginRight: 10 }}
+            onClick={handleMapViewClick}
+            hasIcon
+          >
+            <LinkIcon size={18} strokeWidth={3} /> Scott&apos;s Map Viewer
           </Button>
+          )}
           <Button
             type="button"
             style={{ marginRight: 10 }}
-            onClick={() => window.open(asset.downloadUrl || '#')}
+            onClick={() => window.open(asset.download.url || '#')}
           >
             Download
           </Button>

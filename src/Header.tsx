@@ -64,7 +64,7 @@ const HeaderNavSpacer = styled.div`
   background-color: white;
   opacity: 0.8;
   height: 15px;
-  width: 5px;
+  width: 4px;
   border-radius: 2px;
   margin-left: 15px;
   margin-right: 5px;
@@ -115,7 +115,7 @@ function Header() {
           <span>api explorer</span>
         </HeaderLogoLink>
         <HeaderLogoLink to="/changelog">
-          <span className="version">v1.4</span>
+          <span className="version">v1.5</span>
         </HeaderLogoLink>
       </HeaderLogo>
       <HeaderNav>
