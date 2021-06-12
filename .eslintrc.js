@@ -30,6 +30,7 @@ module.exports = {
     'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
     'react/jsx-one-expression-per-line': 'off',
     'react/require-default-props': 'off',
+    'import/no-extraneous-dependencies': 0,
     'import/extensions': [
       'error',
       'ignorePackages',

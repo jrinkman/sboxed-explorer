@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
-import Chip from 'components/Chip';
 import pkgTypeString from 'helpers/pkgTypeString';
 import missingAssetThumb from 'assets/missing.png';
+
+// Component imports
+import Chip from 'components/Chip';
+// import Chart from 'components/Chart';
 
 interface Asset {
   org: {
@@ -22,10 +25,16 @@ interface Asset {
 const Root = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 12px 12px 24px 12px;
+`;
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   height: 392px;
-  margin: 12px 12px 36px 12px;
   transition: opacity 100ms ease-out;
+  margin-bottom: 12px;
   &:hover {
     opacity: 0.4;
     cursor: pointer;
@@ -98,13 +107,16 @@ function MenuCard(props: Props) {
   };
 
   return (
-    <Root onClick={handleClick}>
-      <Image className="thumb" thumbnail={asset.thumb || missingAssetThumb}>
-        <Chip fontSize="0.75rem">{asset.org.title}</Chip>
-      </Image>
-      <Title>{asset.title}</Title>
-      <Date>{pkgString} - Updated {dateString}</Date>
-      <Summary className="summary">{asset.summary}</Summary>
+    <Root>
+      <Card onClick={handleClick}>
+        <Image className="thumb" thumbnail={asset.thumb || missingAssetThumb}>
+          <Chip fontSize="0.75rem">{asset.org.title}</Chip>
+        </Image>
+        <Title>{asset.title}</Title>
+        <Date>{pkgString} - Updated {dateString}</Date>
+        <Summary className="summary">{asset.summary}</Summary>
+      </Card>
+      {/* <Chart width={307} height={50} /> */}
     </Root>
   );
 }

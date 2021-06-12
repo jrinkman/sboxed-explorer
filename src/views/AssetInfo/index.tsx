@@ -159,6 +159,7 @@ function Info() {
     async function getAssetInfo(): Promise<void> {
       try {
         // Reset the state in the case that we're navigating to the same route
+        setAssetInfoError(null);
         if (assetInfo) setAssetInfo(null);
 
         // Load the data from the API
@@ -168,7 +169,6 @@ function Info() {
         if (!cancelPromise) {
           setAssetInfo(data);
         }
-        setAssetInfo(data);
       } catch (error) {
         console.error(error);
         setAssetInfoError(error);
