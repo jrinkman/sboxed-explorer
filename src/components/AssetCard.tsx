@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
+import { User, Calendar, Users } from 'react-feather';
 import pkgTypeString from 'helpers/pkgTypeString';
 import missingAssetThumb from 'assets/missing.png';
 
@@ -20,6 +21,9 @@ interface Asset {
   thumb: string;
   packageType: number;
   updated: number;
+  usersNow: number;
+  usersMonth: number;
+  usersTotal: number;
 }
 
 const Root = styled.div`
@@ -53,7 +57,8 @@ interface CardProps {
 
 const Image = styled.div<CardProps>`
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
   padding: 16px;
   margin-bottom: 16px;
   transition: height 150ms cubic-bezier(0, 0, 0, 1);
@@ -67,11 +72,28 @@ const Image = styled.div<CardProps>`
 
 `;
 
+const UserIcon = styled(User)`
+  margin-right: 5px;
+`;
+
+const UsersIcon = styled(Users)`
+  margin-left: 5px;
+  margin-right: 5px;
+`;
+
+const CalendarIcon = styled(Calendar)`
+  margin-left: 5px;
+  margin-right: 5px;
+`;
+
 const Title = styled.span`
   color: white;
   font-weight: 700;
   font-size: 1.2rem;
   width: 275px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Date = styled.span`
@@ -110,7 +132,15 @@ function MenuCard(props: Props) {
     <Root>
       <Card onClick={handleClick}>
         <Image className="thumb" thumbnail={asset.thumb || missingAssetThumb}>
-          <Chip fontSize="0.75rem">{asset.org.title}</Chip>
+          <Chip fontSize="0.75rem" style={{ alignSelf: 'flex-end' }}>{asset.org.title}</Chip>
+          <Chip fontSize="0.75rem" style={{ alignSelf: 'flex-end', marginTop: 5 }}>
+            <UserIcon size={15} />
+            {asset.usersNow}
+            <UsersIcon size={15} />
+            {asset.usersMonth}
+            <CalendarIcon size={15} />
+            {asset.usersTotal}
+          </Chip>
         </Image>
         <Title>{asset.title}</Title>
         <Date>{pkgString} - Updated {dateString}</Date>

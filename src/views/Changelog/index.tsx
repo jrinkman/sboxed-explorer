@@ -33,6 +33,13 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.5.2',
+    subtitle: 'Updated asset cards',
+    changes: [
+      'Asset cards & asset info pages now display the \'usersNow\', \'usersMonth\' and \'usersTotal\' properties.',
+    ],
+  },
+  {
     version: 'v1.5.1',
     subtitle: 'Asset config & small fixes',
     changes: [

@@ -7,6 +7,9 @@ interface Props {
 }
 
 export default styled.div<Props>`
+  display: flex;
+  align-items: center;
+  flex-grow: 0;
   color: white;
   padding: 6px 8px 6px 8px;
   border-radius: 16px;

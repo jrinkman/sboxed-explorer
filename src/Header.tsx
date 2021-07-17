@@ -115,7 +115,7 @@ function Header() {
           <span>api explorer</span>
         </HeaderLogoLink>
         <HeaderLogoLink to="/changelog">
-          <span className="version">v1.5.1</span>
+          <span className="version">v1.5.2</span>
         </HeaderLogoLink>
       </HeaderLogo>
       <HeaderNav>

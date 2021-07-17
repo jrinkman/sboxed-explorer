@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
-import { ExternalLink } from 'react-feather';
+import {
+  ExternalLink, User, Calendar, Users,
+} from 'react-feather';
 import axios from 'axios';
 import styled from 'styled-components';
 import prettyBytes from 'pretty-bytes';
@@ -39,6 +41,9 @@ interface AssetInfo {
       size?: number;
     };
     updated: number;
+    usersNow: number;
+    usersMonth: number;
+    usersTotal: number;
     config: {
       showMapSelect: boolean;
       defaultMap: string;
@@ -62,6 +67,7 @@ const Root = styled.div`
 
 const Header = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
   & h1 {
     color: white;
@@ -138,6 +144,20 @@ const Actions = styled.div`
   padding-bottom: 40px;
 `;
 
+const UserIcon = styled(User)`
+  margin-right: 5px;
+`;
+
+const UsersIcon = styled(Users)`
+  margin-left: 5px;
+  margin-right: 5px;
+`;
+
+const CalendarIcon = styled(Calendar)`
+  margin-left: 5px;
+  margin-right: 5px;
+`;
+
 const LinkIcon = styled(ExternalLink)`
   margin-bottom: 2px;
   margin-right: 12px;
@@ -211,6 +231,14 @@ function Info() {
           <h1>{asset.title}</h1>
           <Chip marginLeft={10}>{pkgTypeString(asset.packageType)}</Chip>
           <Chip marginLeft={10}>{asset.download.type.toUpperCase()}{asset.download.type === 'upload' && ` - ${prettyBytes(asset.download.size || 0)}`}</Chip>
+          <Chip marginLeft={10}>
+            <UserIcon size={15} />
+            {asset.usersNow}
+            <UsersIcon size={15} />
+            {asset.usersMonth}
+            <CalendarIcon size={15} />
+            {asset.usersTotal}
+          </Chip>
         </Header>
         <Date>
           By {asset.org.title},
