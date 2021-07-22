@@ -115,7 +115,7 @@ function Header() {
           <span>api explorer</span>
         </HeaderLogoLink>
         <HeaderLogoLink to="/changelog">
-          <span className="version">v1.5.2</span>
+          <span className="version">v{process.env.REACT_APP_VERSION}</span>
         </HeaderLogoLink>
       </HeaderLogo>
       <HeaderNav>

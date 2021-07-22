@@ -60,10 +60,24 @@ function Menu() {
     async function getMenuData(): Promise<void> {
       try {
         // Retireve the API data
-        const { data } = (await axios.get<MenuItem[]>('/menu/index'));
+        const [mostPopular, newestReleases] = await Promise.all([
+          axios.get<Asset[]>('/asset/list?order=popular'),
+          axios.get<Asset[]>('/asset/list?order=newest'),
+        ]);
 
         // Update the state
-        setMenuItems(data);
+        setMenuItems([
+          {
+            title: 'Most Popular',
+            description: 'The most popular assets to date',
+            packages: mostPopular.data,
+          },
+          {
+            title: 'Most Popular',
+            description: 'Fresh gamemodes and maps for your pleasure.',
+            packages: newestReleases.data,
+          },
+        ]);
       } catch (error) {
         console.error(error);
         setMenuError(error);

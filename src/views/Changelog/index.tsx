@@ -33,6 +33,14 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.5.3',
+    subtitle: 'Menu fix & improved versioning',
+    changes: [
+      'The /menu/index endpoint was removed - a temporary fix was added',
+      'Project versioning now uses process.env.REACT_APP_VERSION rather than being hardcoded',
+    ],
+  },
+  {
     version: 'v1.5.2',
     subtitle: 'Updated asset cards',
     changes: [

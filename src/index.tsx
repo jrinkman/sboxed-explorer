@@ -9,6 +9,9 @@ import reportWebVitals from './reportWebVitals';
 // Set the API url
 axios.defaults.baseURL = 'https://proxy.sboxed.com';
 
+// Update the document title
+document.title = `s&boxed | v${process.env.REACT_APP_VERSION}`;
+
 // Render the dom
 ReactDOM.render(
   <React.StrictMode>
