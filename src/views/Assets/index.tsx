@@ -14,11 +14,6 @@ import pkgTypeString from 'helpers/pkgTypeString';
 import assetFuncs from 'helpers/assetFuncs';
 import assetSearch from 'helpers/assetSearch';
 
-interface AssetResponse {
-  type: number;
-  assets: Asset[];
-}
-
 const Root = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,7 +51,7 @@ interface RouteParams {
 }
 
 function Assets() {
-  const [assets, setAssets] = useState<AssetResponse | null>(null);
+  const [assets, setAssets] = useState<Asset[] | null>(null);
   const [assetError, setAssetError] = useState<Error | null>(null);
   const [sortBy, setSortBy] = useState<string>('recent');
   const [filter, setFilter] = useState<string>('');
@@ -72,7 +67,7 @@ function Assets() {
         setFilter('');
 
         // Load the API data
-        const { data } = await axios.get<AssetResponse>(`/asset/find?type=${assetType}`);
+        const { data } = await axios.get<Asset[]>(`/asset/list?type=${assetType}`);
 
         // Update the state
         if (!cancelPromise) {
@@ -93,18 +88,15 @@ function Assets() {
   if (!assets) return <Loader paddingBottom />;
 
   // Sort functions
-  const filteredAssets = assets.assets.filter(assetSearch(filter));
-
-  // Get the display name of the package type
-  const assetTypeName = pkgTypeString(assets.type);
+  const filteredAssets = assets.filter(assetSearch(filter));
   return (
     <Root>
       <Section>
         <SectionHeader>
           <div>
             <Heading
-              title={`${assetTypeName}s`}
-              subtitle={`Retrieved ${assets.assets.length} ${assetTypeName}s from the API`}
+              title={`${assetType}s`}
+              subtitle={`Retrieved ${assets.length} ${assetType}s from the API`}
             />
           </div>
           <SectionActions>

@@ -33,6 +33,13 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.5.4',
+    subtitle: 'Modes & maps fix',
+    changes: [
+      'The /assets/find endpoint was removed - error fixed',
+    ],
+  },
+  {
     version: 'v1.5.3',
     subtitle: 'Menu fix & improved versioning',
     changes: [

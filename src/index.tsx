@@ -10,7 +10,7 @@ import reportWebVitals from './reportWebVitals';
 axios.defaults.baseURL = 'https://proxy.sboxed.com';
 
 // Update the document title
-document.title = `s&boxed | v${process.env.REACT_APP_VERSION}`;
+document.title = `s&boxed | v${process.env.REACT_APP_VERSION || '0.0.0'}`;
 
 // Render the dom
 ReactDOM.render(
