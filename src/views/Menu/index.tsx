@@ -73,7 +73,7 @@ function Menu() {
             packages: mostPopular.data,
           },
           {
-            title: 'Most Popular',
+            title: 'Recent',
             description: 'Fresh gamemodes and maps for your pleasure.',
             packages: newestReleases.data,
           },
