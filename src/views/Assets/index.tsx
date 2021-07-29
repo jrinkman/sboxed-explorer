@@ -50,6 +50,11 @@ interface RouteParams {
   type: string;
 }
 
+function capitalize(input: string) {
+  if (input.length < 2) return '';
+  return input.charAt(0).toUpperCase() + input.slice(1);
+}
+
 function Assets() {
   const [assets, setAssets] = useState<Asset[] | null>(null);
   const [assetError, setAssetError] = useState<Error | null>(null);
@@ -95,7 +100,7 @@ function Assets() {
         <SectionHeader>
           <div>
             <Heading
-              title={`${assetType}s`}
+              title={`${capitalize(assetType)}s`}
               subtitle={`Retrieved ${assets.length} ${assetType}s from the API`}
             />
           </div>
