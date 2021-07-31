@@ -29,7 +29,7 @@ function App() {
       <Header />
       <Main>
         <Switch>
-          <Route path="/menu">
+          {/* <Route path="/menu">
             <Menu />
           </Route>
           <Route path="/assets/:type/:id">
@@ -40,7 +40,7 @@ function App() {
           </Route>
           <Route path="/changelog">
             <Changelog />
-          </Route>
+          </Route> */}
           <Route path="/">
             <Home />
           </Route>
