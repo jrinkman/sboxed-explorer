@@ -16,7 +16,7 @@ const Root = styled.div`
   flex-grow: 1;
   padding-left: 40px;
   padding-right: 40px;
-  padding-top: 90px;
+  padding-top: 60px;
   align-text: center;
 `;
 
@@ -33,11 +33,32 @@ const Header = styled.h1`
   user-select: none;
 `;
 
+const Deprecated = styled.span`
+  opacity: 0.8;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  user-select: none;
+  margin-top: 72px;
+  margin-bottom: 82px;
+`;
+
+const DeprecatedLink = styled.a`
+  text-decoration: none;
+  opacity: 1;
+  user-select: none;
+  transition: opacity 100ms ease-out;
+  color: #00A2FF;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
 const Credit = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 92px;
   color: white;
   font-weight: 500;
   font-size: 1.4rem;
@@ -99,9 +120,12 @@ function Home() {
           <CreditImage src={profileImg} />
           by astrojaxx
         </Credit>
+        <Deprecated>
+          This project is deprecated, read more <DeprecatedLink href="https://github.com/jrinkman/sboxed-explorer">here</DeprecatedLink>
+        </Deprecated>
         <ButtonRow marginLeft={5} marginRight={5}>
-          <Button onClick={handleChangelogClick}>Goto Changelog</Button>
-          <Button onClick={handleMenuClick}>Goto Menu</Button>
+          <Button onClick={handleChangelogClick}>Changelog</Button>
+          <Button onClick={handleMenuClick} disabled>Goto Menu</Button>
         </ButtonRow>
         <BottomLink>
           This project uses <a className="link" href="https://github.com/jrinkman/sboxed-proxy" target="_blank" rel="noreferrer">sboxed-proxy</a>

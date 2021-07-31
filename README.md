@@ -1,3 +1,5 @@
+> **NOTICE: This project is no longer in active development as of 31/07/2021. Due to recent changes to the s&box API, Steam auth tickets are now required to make API calls.**
+
 # sboxed: API Explorer
 
 > A web interface for S&box's API

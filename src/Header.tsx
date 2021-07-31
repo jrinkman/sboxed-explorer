@@ -118,7 +118,7 @@ function Header() {
           <span className="version">v{process.env.REACT_APP_VERSION}</span>
         </HeaderLogoLink>
       </HeaderLogo>
-      <HeaderNav>
+      {/* <HeaderNav>
         <HeaderNavLink to="/" exact activeClassName="active">
           home
         </HeaderNavLink>
@@ -135,7 +135,7 @@ function Header() {
         <HeaderNavAnchor href="https://github.com/jrinkman/sboxed-explorer" target="_blank" rel="noreferrer">
           github
         </HeaderNavAnchor>
-      </HeaderNav>
+      </HeaderNav> */}
     </Root>
   );
 }
