@@ -18,27 +18,32 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding-left: 40px;
-  padding-right: 40px;
 `;
 
 const Section = styled.section`
   display: flex;
-  padding-bottom: 48px;
   flex-direction: column;
   .packages {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 16px;
+    background-color: rgba(33, 43, 54, 0.5);
+    height: calc(100vh - 235px);
+    padding-top: 20px;
+    padding-left: 40px;
     margin-left: -12px;
-    margin-right: -12px;
+    overflow-y: auto;
   }
 `;
 
 const SectionHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 32px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 10;
 `;
 
 const SectionActions = styled.div`
@@ -90,10 +95,9 @@ function Assets() {
   }, [assetType]);
 
   if (assetError) return <Message title="An error occured" subtitle="Check the console for more details." paddingBottom />;
-  if (!assets) return <Loader paddingBottom />;
 
   // Sort functions
-  const filteredAssets = assets.filter(assetSearch(filter));
+  const filteredAssets = assets?.filter(assetSearch(filter));
   return (
     <Root>
       <Section>
@@ -101,7 +105,7 @@ function Assets() {
           <div>
             <Heading
               title={`${capitalize(assetType)}s`}
-              subtitle={`Retrieved ${assets.length} ${assetType}s from the API`}
+              subtitle={assets ? `Retrieved ${assets.length} ${assetType}s from the API` : 'Making API request'}
             />
           </div>
           <SectionActions>
@@ -119,9 +123,9 @@ function Assets() {
           </SectionActions>
         </SectionHeader>
         <div className="packages">
-          {filteredAssets.sort(assetFuncs[sortBy]).map(
+          {assets ? filteredAssets?.sort(assetFuncs[sortBy]).map(
             (asset) => <Card key={asset.ident} asset={asset} />,
-          )}
+          ) : <Loader paddingBottom />}
         </div>
       </Section>
     </Root>

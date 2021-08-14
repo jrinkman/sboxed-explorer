@@ -64,7 +64,6 @@ const Image = styled.div<CardProps>`
   transition: height 150ms cubic-bezier(0, 0, 0, 1);
   background-image: url("${(props) => props.thumbnail}");
   background-size: cover;
-  background-color: rgb(33, 43, 54);
   box-shadow: 5px 5px 30px rgb(0 0 0 / 40%);
   border-radius: 16px;
   width: 275px;

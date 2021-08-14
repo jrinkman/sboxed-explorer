@@ -122,9 +122,6 @@ function Header() {
         <HeaderNavLink to="/" exact activeClassName="active">
           home
         </HeaderNavLink>
-        <HeaderNavLink to="/menu" exact activeClassName="active">
-          menu
-        </HeaderNavLink>
         <HeaderNavLink to="/assets/gamemode" activeClassName="active">
           modes
         </HeaderNavLink>

@@ -15,6 +15,7 @@ const sizeString = (hasIcon: boolean) => ({
 export default styled.button<Props>`
   display: flex;
   align-items: center;
+  justify-content: center;
   color: white;
   font-weight: 700;
   padding: ${(props) => sizeString(Boolean(props.hasIcon))[props.size || 'medium']};

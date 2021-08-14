@@ -85,8 +85,8 @@ function Home() {
     history.push('/changelog');
   };
 
-  const handleMenuClick = () => {
-    history.push('/menu');
+  const handleGotoClick = () => {
+    history.push('/assets/gamemode');
   };
 
   return (
@@ -100,8 +100,8 @@ function Home() {
           by astrojaxx
         </Credit>
         <ButtonRow marginLeft={5} marginRight={5}>
-          <Button onClick={handleChangelogClick}>Goto Changelog</Button>
-          <Button onClick={handleMenuClick}>Goto Menu</Button>
+          <Button onClick={handleChangelogClick}>View Changelog</Button>
+          <Button onClick={handleGotoClick}>Start Exploring</Button>
         </ButtonRow>
         <BottomLink>
           This project uses <a className="link" href="https://github.com/jrinkman/sboxed-proxy" target="_blank" rel="noreferrer">sboxed-proxy</a>

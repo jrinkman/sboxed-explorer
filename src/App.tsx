@@ -29,9 +29,9 @@ function App() {
       <Header />
       <Main>
         <Switch>
-          <Route path="/menu">
+          {/* <Route path="/menu">
             <Menu />
-          </Route>
+          </Route> */}
           <Route path="/assets/:type/:id">
             <AssetInfo />
           </Route>
