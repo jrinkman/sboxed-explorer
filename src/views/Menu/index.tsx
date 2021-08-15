@@ -5,12 +5,7 @@ import AssetCard, { Asset } from 'components/AssetCard';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Heading from 'components/Heading';
-import Search from 'components/Search';
 import ButtonGroup from 'components/ButtonGroup';
-
-// Asset sorting & searching functions
-import assetFuncs from 'helpers/assetFuncs';
-import assetSearch from 'helpers/assetSearch';
 
 interface MenuItem {
   title: string;
@@ -111,22 +106,8 @@ function Menu() {
                   });
                 }}
               />
-              <Search
-                placeholder="Enter filter (e.g. 'Sandbox')"
-                marginTop={5}
-                width={340}
-                onChange={(e) => {
-                  setMenuFilter({
-                    ...menuFilter,
-                    [item.title]: e.target.value,
-                  });
-                }}
-              />
             </SectionActions>
           </SectionHeader>
-          <div className="packages">
-            {item.packages.filter(assetSearch(menuFilter[item.title])).sort(assetFuncs[menuSort[item.title] || 'recent']).map((asset) => <AssetCard key={asset.ident} asset={asset} />)}
-          </div>
         </Section>
       ))}
     </Root>

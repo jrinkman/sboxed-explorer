@@ -100,7 +100,7 @@ function Home() {
           by astrojaxx
         </Credit>
         <ButtonRow marginLeft={5} marginRight={5}>
-          <Button onClick={handleChangelogClick}>View Changelog</Button>
+          <Button onClick={handleChangelogClick}>v{process.env.REACT_APP_VERSION} Changelog</Button>
           <Button onClick={handleGotoClick}>Start Exploring</Button>
         </ButtonRow>
         <BottomLink>

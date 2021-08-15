@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
-import { User, Calendar, Users } from 'react-feather';
+import {
+  Activity, User, Calendar, Users,
+} from 'react-feather';
 import pkgTypeString from 'helpers/pkgTypeString';
 import missingAssetThumb from 'assets/missing.png';
 
@@ -22,6 +24,7 @@ interface Asset {
   packageType: number;
   updated: number;
   usersNow: number;
+  usersDay: number;
   usersMonth: number;
   usersTotal: number;
 }
@@ -35,6 +38,7 @@ const Root = styled.div`
 const Card = styled.div`
   display: flex;
   flex-direction: column;
+  border-radius: 16px;
   overflow: hidden;
   height: 392px;
   transition: opacity 100ms ease-out;
@@ -58,6 +62,7 @@ interface CardProps {
 const Image = styled.div<CardProps>`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   justify-content: flex-end;
   padding: 16px;
   margin-bottom: 16px;
@@ -71,7 +76,12 @@ const Image = styled.div<CardProps>`
 
 `;
 
+const ActivityIcon = styled(Activity)`
+  margin-right: 5px;
+`;
+
 const UserIcon = styled(User)`
+  margin-left: 5px;
   margin-right: 5px;
 `;
 
@@ -133,8 +143,10 @@ function MenuCard(props: Props) {
         <Image className="thumb" thumbnail={asset.thumb || missingAssetThumb}>
           <Chip fontSize="0.75rem" style={{ alignSelf: 'flex-end' }}>{asset.org.title}</Chip>
           <Chip fontSize="0.75rem" style={{ alignSelf: 'flex-end', marginTop: 5 }}>
-            <UserIcon size={15} />
+            <ActivityIcon size={15} />
             {asset.usersNow}
+            <UserIcon size={15} />
+            {asset.usersDay}
             <UsersIcon size={15} />
             {asset.usersMonth}
             <CalendarIcon size={15} />

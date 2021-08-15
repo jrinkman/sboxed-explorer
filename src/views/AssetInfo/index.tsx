@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import {
-  ExternalLink, User, Calendar, Users,
+  ExternalLink, Activity, User, Calendar, Users,
 } from 'react-feather';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -42,8 +42,10 @@ interface AssetInfo {
     };
     updated: number;
     usersNow: number;
+    usersDay: number;
     usersMonth: number;
     usersTotal: number;
+    tags: string[];
     config: {
       showMapSelect: boolean;
       defaultMap: string;
@@ -58,11 +60,39 @@ interface InfoLinkProps {
   paddingTop?: boolean;
 }
 
+interface SideheaderProps {
+  paddingTop?: boolean;
+}
+
 const Root = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  padding: 20px 40px 40px 0px;
+`;
+
+const Main = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 40px;
+  padding-left: 40px;
+`;
+
+const Side = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 250px;
+  max-width: 250px;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(16px);
+  padding: 20px;
+  border-top-right-radius: 32px;
+  border-bottom-right-radius: 32px;
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Header = styled.div`
@@ -99,8 +129,9 @@ const Description = styled.span`
   white-space: pre-wrap;
   min-height: 25px;
   margin-top: 45px;
-  margin-bottom: 45px;
-  width: 75%;
+  margin-bottom: 5px;
+  padding-right: 25%;
+  overflow-y: auto;
 `;
 
 const Date = styled.span`
@@ -109,6 +140,40 @@ const Date = styled.span`
   font-weight: 500;
   font-size: 1.1rem;
   margin-top: 6px;
+`;
+
+const Sideheader = styled.span<SideheaderProps>`
+  color: white;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  ${(props) => (props.paddingTop ? 'margin-top: 24px;' : '')}
+`;
+
+const Stats = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: white;
+  opacity: 0.6;
+  font-size: 1.1rem;
+  margin-top: 6px;
+`;
+
+const Tags = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  .tag {
+    color: white;
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 4px 8px 4px 8px;
+    background-color: rgba(0, 162, 255, 0.8);
+    border-radius: 4px;
+    margin-right: 4px;
+    margin-top: 4px;
+    user-select: none;
+  }
 `;
 
 const InfoLink = styled.a<InfoLinkProps>`
@@ -141,7 +206,11 @@ const Config = styled.div`
 
 const Actions = styled.div`
   display: flex;
-  padding-bottom: 40px;
+  flex-direction: column;
+`;
+
+const ActivityIcon = styled(Activity)`
+  margin-right: 5px;
 `;
 
 const UserIcon = styled(User)`
@@ -149,12 +218,10 @@ const UserIcon = styled(User)`
 `;
 
 const UsersIcon = styled(Users)`
-  margin-left: 5px;
   margin-right: 5px;
 `;
 
 const CalendarIcon = styled(Calendar)`
-  margin-left: 5px;
   margin-right: 5px;
 `;
 
@@ -226,64 +293,79 @@ function Info() {
     <>
       <Background background={asset.background} />
       <Root>
-        <Header>
-          <img className="logo" src={asset.org.thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
-          <h1>{asset.title}</h1>
-          <Chip marginLeft={10}>{pkgTypeString(asset.packageType)}</Chip>
-          <Chip marginLeft={10}>{asset.download.type.toUpperCase()}{asset.download.type === 'upload' && ` - ${prettyBytes(asset.download.size || 0)}`}</Chip>
-          <Chip marginLeft={10}>
-            <UserIcon size={15} />
-            {asset.usersNow}
-            <UsersIcon size={15} />
-            {asset.usersMonth}
-            <CalendarIcon size={15} />
-            {asset.usersTotal}
-          </Chip>
-        </Header>
-        <Date>
-          By {asset.org.title},
-          {' '} Updated {dateString}
-        </Date>
-        {asset.config && (
-        <Config>
-          <MapLink to={`/assets/map/${asset.config.defaultMap}`}><LabelChip label="default map" text={asset.config.defaultMap} /></MapLink>
-          <LabelChip label="min players" text={asset.config.minPlayers.toString()} />
-          <LabelChip label="max players" text={asset.config.maxPlayers.toString()} />
-          <LabelChip label="show map select" text={asset.config.showMapSelect.toString()} />
-          <LabelChip label="client download shared" text={asset.config.clientDownloadShared.toString()} />
-        </Config>
-        )}
-        <Subheader>{asset.summary || 'No summary provided'}</Subheader>
-        <InfoLink href={asset.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
-        <InfoLink href={asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
-        <Description>{asset.description}</Description>
-        <Actions>
-          {/* <Button
-            disabled
-            style={{ marginRight: 10 }}
-            onClick={handleOpenClick}
-          >
-            Open in s&box
-          </Button> */}
-          {type === 'map' && (
-          <Button
-            disabled={assetInfo.asset.packageType !== 1}
-            style={{ marginRight: 10 }}
-            onClick={handleMapViewClick}
-            hasIcon
-          >
-            <LinkIcon size={18} strokeWidth={3} /> Scott&apos;s Map Viewer
-          </Button>
+        <Side>
+          <div className="content">
+            <Sideheader>Player Counts</Sideheader>
+            <Stats>
+              <span><ActivityIcon size={15} /> {asset.usersNow} Now</span>
+              <span><UserIcon size={15} /> {asset.usersDay} Today</span>
+              <span><UsersIcon size={15} /> {asset.usersMonth} Month</span>
+              <span><CalendarIcon size={15} /> {asset.usersTotal} Total</span>
+            </Stats>
+            {type === 'gamemode' && asset.tags.length > 0 && (
+              <>
+                <Sideheader paddingTop>Tags</Sideheader>
+                <Tags>
+                  {asset.tags.map((tag) => <span className="tag">{tag}</span>)}
+                </Tags>
+              </>
+            )}
+          </div>
+          <Actions>
+            {/* <Button
+              disabled
+              style={{ marginRight: 10 }}
+              onClick={handleOpenClick}
+            >
+              Open in s&box
+            </Button> */}
+            {type === 'map' && (
+            <Button
+              disabled={assetInfo.asset.packageType !== 1}
+              style={{ marginBottom: 10 }}
+              variant="outlined"
+              onClick={handleMapViewClick}
+              hasIcon
+            >
+              <LinkIcon size={18} strokeWidth={3} /> Scott&apos;s Map Viewer
+            </Button>
+            )}
+            <Button
+              type="button"
+              style={{ marginBottom: 10 }}
+              variant="outlined"
+              onClick={() => window.open(asset.download.url || '#')}
+            >
+              Download
+            </Button>
+            <Button type="button" variant="outlined" onClick={handleBackClick}>Go Back</Button>
+          </Actions>
+        </Side>
+        <Main>
+          <Header>
+            <img className="logo" src={asset.org.thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
+            <h1>{asset.title}</h1>
+            <Chip marginLeft={10}>{pkgTypeString(asset.packageType)}</Chip>
+            <Chip marginLeft={10}>{asset.download.type.toUpperCase()}{asset.download.type === 'upload' && ` - ${prettyBytes(asset.download.size || 0)}`}</Chip>
+          </Header>
+          <Date>
+            By {asset.org.title},
+            {' '} Updated {dateString}
+          </Date>
+          {asset.config && (
+          <Config>
+            <MapLink to={`/assets/map/${asset.config.defaultMap}`}><LabelChip label="default map" text={asset.config.defaultMap} /></MapLink>
+            <LabelChip label="min players" text={asset.config.minPlayers.toString()} />
+            <LabelChip label="max players" text={asset.config.maxPlayers.toString()} />
+            <LabelChip label="show map select" text={asset.config.showMapSelect.toString()} />
+            <LabelChip label="client download shared" text={asset.config.clientDownloadShared.toString()} />
+          </Config>
           )}
-          <Button
-            type="button"
-            style={{ marginRight: 10 }}
-            onClick={() => window.open(asset.download.url || '#')}
-          >
-            Download
-          </Button>
-          <Button type="button" onClick={handleBackClick}>Go Back</Button>
-        </Actions>
+          <Subheader>{asset.summary || 'No summary provided'}</Subheader>
+          <InfoLink href={asset.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
+          <InfoLink href={asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
+          <Description>{asset.description}</Description>
+        </Main>
       </Root>
     </>
   );

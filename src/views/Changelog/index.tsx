@@ -33,6 +33,21 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.6',
+    subtitle: 'Revamped asset browser, removed menu route & more',
+    changes: [
+      'This project was deprecated for a short period of time following s&box API changes. It was thought that a Steam auth ticket was needed to authenticate requests, however it turns out we just needed to add a new version header to each request.',
+      'So what\'s new?',
+      'Changed the header style of the asset browser pages',
+      'Input boxes now actually search via the API, rather than just filtering results',
+      'Added category select dropdown to asset browser pages',
+      'Added new sidemenu to the asset info page, includes player counts & tags for gamemodes',
+      'Restyled buttons on the asset info page and moved them to the side menu',
+      'Removed the \'menu\' route, as the /menu endpoint no longer exists',
+      'Updated the view changelog button on the home page to reference the latest API explorer version',
+    ],
+  },
+  {
     version: 'v1.5.4',
     subtitle: 'Modes & maps fix',
     changes: [

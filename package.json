@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-select": "^4.0.17",
     "@visx/curve": "^1.7.0",
     "@visx/event": "^1.7.0",
     "@visx/gradient": "^1.7.0",
@@ -22,6 +23,7 @@
     "react-feather": "^2.0.9",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-select": "^4.3.1",
     "styled-components": "^5.2.3",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"

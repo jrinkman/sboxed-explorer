@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface StyleProps {
   marginTop?: number;
+  marginBottom?: number;
   width?: number;
 }
 
 const Input = styled.input<StyleProps>`
   display: flex;
   margin-top: ${(props) => (props.marginTop || 0)}px;
-  width: ${(props) => (props.width || 220)}px;
+  margin-bottom: ${(props) => (props.marginBottom || 0)}px;
+  min-width: ${(props) => (props.width || 220)}px;
   height: 33px;
   border-radius: 20px;
   padding-left: 10px;
@@ -34,13 +36,32 @@ const Input = styled.input<StyleProps>`
 interface Props {
   placeholder?: string;
   marginTop?: number;
+  marginBottom?: number;
   width?: number;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onSubmit?: (text: string) => void;
 }
 
 export default function Search(props: Props) {
   const {
-    placeholder, marginTop, width, onChange,
+    placeholder, marginTop, marginBottom, width, onSubmit,
   } = props;
-  return <Input type="text" placeholder={placeholder} marginTop={marginTop} width={width} onChange={onChange} />;
+  const [search, setSearch] = useState('');
+
+  // Search debounce
+  React.useEffect(() => {
+    const debouceTimer = setTimeout(() => { if (onSubmit) onSubmit(search); }, 350);
+    return () => clearTimeout(debouceTimer);
+  }, [search]);
+
+  return (
+    <Input
+      type="text"
+      value={search}
+      placeholder={placeholder}
+      marginTop={marginTop}
+      marginBottom={marginBottom}
+      width={width}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+  );
 }
