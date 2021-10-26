@@ -18,40 +18,40 @@ import Button from 'components/Button';
 import Background from 'components/Background';
 
 interface AssetInfo {
-  asset: {
-    org: {
-      ident: string;
-      title: string;
-      description: string;
-      thumb: string;
-      socialTwitter: string;
-      socialWeb: string;
+  Asset: {
+    Org: {
+      Ident: string;
+      Title: string;
+      Description: string;
+      Thumb: string;
+      SocialTwitter: string;
+      SocialWeb: string;
     },
-    ident: string;
-    title: string;
-    summary: string;
-    description: string;
-    thumb: string;
-    background: string;
-    packageType: number;
-    download: {
-      type: string;
-      url: string;
-      crc?: number;
-      size?: number;
+    Ident: string;
+    Title: string;
+    Summary: string;
+    Description: string;
+    Thumb: string;
+    Background: string;
+    PackageType: number;
+    Download: {
+      Type: string;
+      Url: string;
+      Crc?: number;
+      Size?: number;
     };
-    updated: number;
-    usersNow: number;
-    usersDay: number;
-    usersMonth: number;
-    usersTotal: number;
-    tags: string[];
-    config: {
-      showMapSelect: boolean;
-      defaultMap: string;
-      maxPlayers: 36;
-      minPlayers: 1;
-      clientDownloadShared: boolean;
+    Updated: number;
+    UsersNow: number;
+    UsersDay: number;
+    UsersMonth: number;
+    UsersTotal: number;
+    Tags: string[];
+    Config: {
+      ShowMapSelect: boolean;
+      DefaultMap: string;
+      MaxPlayers: 36;
+      MinPlayers: 1;
+      ClientDownloadShared: boolean;
     } | null;
   }
 }
@@ -258,7 +258,7 @@ function Info() {
         }
       } catch (error) {
         console.error(error);
-        setAssetInfoError(error);
+        setAssetInfoError(error as Error);
       }
     }
 
@@ -273,10 +273,10 @@ function Info() {
 
   // If we haven't recieved any API data, return the loader
   if (!assetInfo) return <Loader paddingBottom />;
-  const { asset } = assetInfo;
+  const { Asset } = assetInfo;
 
   // Format the date number to a string
-  const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('d LLL h:mm a');
+  const dateString = DateTime.fromMillis(Asset.Updated * 1000).toFormat('d LLL h:mm a');
 
   // Handle 'open' button clicks
   const handleMapViewClick = () => {
@@ -291,22 +291,22 @@ function Info() {
 
   return (
     <>
-      <Background background={asset.background} />
+      <Background background={Asset.Background} />
       <Root>
         <Side>
           <div className="content">
             <Sideheader>Player Counts</Sideheader>
             <Stats>
-              <span><ActivityIcon size={15} /> {asset.usersNow} Now</span>
-              <span><UserIcon size={15} /> {asset.usersDay} Today</span>
-              <span><UsersIcon size={15} /> {asset.usersMonth} Month</span>
-              <span><CalendarIcon size={15} /> {asset.usersTotal} Total</span>
+              <span><ActivityIcon size={15} /> {Asset.UsersNow} Now</span>
+              <span><UserIcon size={15} /> {Asset.UsersDay} Today</span>
+              <span><UsersIcon size={15} /> {Asset.UsersMonth} Month</span>
+              <span><CalendarIcon size={15} /> {Asset.UsersTotal} Total</span>
             </Stats>
-            {type === 'gamemode' && asset.tags.length > 0 && (
+            {type === 'gamemode' && Asset.Tags.length > 0 && (
               <>
                 <Sideheader paddingTop>Tags</Sideheader>
                 <Tags>
-                  {asset.tags.map((tag) => <span className="tag">{tag}</span>)}
+                  {Asset.Tags.map((tag) => <span className="tag">{tag}</span>)}
                 </Tags>
               </>
             )}
@@ -321,7 +321,7 @@ function Info() {
             </Button> */}
             {type === 'map' && (
             <Button
-              disabled={assetInfo.asset.packageType !== 1}
+              disabled={assetInfo.Asset.PackageType !== 1}
               style={{ marginBottom: 10 }}
               variant="outlined"
               onClick={handleMapViewClick}
@@ -334,7 +334,7 @@ function Info() {
               type="button"
               style={{ marginBottom: 10 }}
               variant="outlined"
-              onClick={() => window.open(asset.download.url || '#')}
+              onClick={() => window.open(Asset.Download.Url || '#')}
             >
               Download
             </Button>
@@ -343,28 +343,28 @@ function Info() {
         </Side>
         <Main>
           <Header>
-            <img className="logo" src={asset.org.thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
-            <h1>{asset.title}</h1>
-            <Chip marginLeft={10}>{pkgTypeString(asset.packageType)}</Chip>
-            <Chip marginLeft={10}>{asset.download.type.toUpperCase()}{asset.download.type === 'upload' && ` - ${prettyBytes(asset.download.size || 0)}`}</Chip>
+            <img className="logo" src={Asset.Org.Thumb || '/apple-touch-icon.png'} alt="org thumbnail" />
+            <h1>{Asset.Title}</h1>
+            <Chip marginLeft={10}>{pkgTypeString(Asset.PackageType)}</Chip>
+            <Chip marginLeft={10}>{Asset.Download.Type.toUpperCase()}{Asset.Download.Type === 'upload' && ` - ${prettyBytes(Asset.Download.Size || 0)}`}</Chip>
           </Header>
           <Date>
-            By {asset.org.title},
+            By {Asset.Org.Title},
             {' '} Updated {dateString}
           </Date>
-          {asset.config && (
+          {Asset.Config && (
           <Config>
-            <MapLink to={`/assets/map/${asset.config.defaultMap}`}><LabelChip label="default map" text={asset.config.defaultMap} /></MapLink>
-            <LabelChip label="min players" text={asset.config.minPlayers.toString()} />
-            <LabelChip label="max players" text={asset.config.maxPlayers.toString()} />
-            <LabelChip label="show map select" text={asset.config.showMapSelect.toString()} />
-            <LabelChip label="client download shared" text={asset.config.clientDownloadShared.toString()} />
+            <MapLink to={`/assets/map/${Asset.Config.DefaultMap}`}><LabelChip label="default map" text={Asset.Config.DefaultMap} /></MapLink>
+            <LabelChip label="min players" text={Asset.Config.MinPlayers.toString()} />
+            <LabelChip label="max players" text={Asset.Config.MaxPlayers.toString()} />
+            <LabelChip label="show map select" text={Asset.Config.ShowMapSelect.toString()} />
+            <LabelChip label="client download shared" text={Asset.Config.ClientDownloadShared.toString()} />
           </Config>
           )}
-          <Subheader>{asset.summary || 'No summary provided'}</Subheader>
-          <InfoLink href={asset.org.socialWeb || '#'} paddingTop>🔗 Website</InfoLink>
-          <InfoLink href={asset.org.socialTwitter || '#'}>🐦 Twitter</InfoLink>
-          <Description>{asset.description}</Description>
+          <Subheader>{Asset.Summary || 'No summary provided'}</Subheader>
+          <InfoLink href={Asset.Org.SocialWeb || '#'} paddingTop>🔗 Website</InfoLink>
+          <InfoLink href={Asset.Org.SocialTwitter || '#'}>🐦 Twitter</InfoLink>
+          <Description>{Asset.Description}</Description>
         </Main>
       </Root>
     </>

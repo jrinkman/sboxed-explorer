@@ -13,20 +13,20 @@ import Chip from 'components/Chip';
 // import Chart from 'components/Chart';
 
 interface Asset {
-  org: {
-    ident: string;
-    title: string;
+  Org: {
+    Ident: string;
+    Title: string;
   };
-  ident: string;
-  title: string;
-  summary: string;
-  thumb: string;
-  packageType: number;
-  updated: number;
-  usersNow: number;
-  usersDay: number;
-  usersMonth: number;
-  usersTotal: number;
+  Ident: string;
+  Title: string;
+  Summary: string;
+  Thumb: string;
+  PackageType: number;
+  Updated: number;
+  UsersNow: number;
+  UsersDay: number;
+  UsersMonth: number;
+  UsersTotal: number;
 }
 
 const Root = styled.div`
@@ -130,32 +130,32 @@ interface Props {
 function MenuCard(props: Props) {
   const { asset } = props;
   const history = useHistory();
-  const dateString = DateTime.fromMillis(asset.updated * 1000).toFormat('dd/MM/yyyy');
-  const pkgString = pkgTypeString(asset.packageType);
+  const dateString = DateTime.fromMillis(asset.Updated * 1000).toFormat('dd/MM/yyyy');
+  const pkgString = pkgTypeString(asset.PackageType);
 
   const handleClick = () => {
-    history.push(`/assets/${pkgString.toLowerCase()}/${asset.org.ident}.${asset.ident}`);
+    history.push(`/assets/${pkgString.toLowerCase()}/${asset.Org.Ident}.${asset.Ident}`);
   };
 
   return (
     <Root>
       <Card onClick={handleClick}>
-        <Image className="thumb" thumbnail={asset.thumb || missingAssetThumb}>
-          <Chip fontSize="0.75rem" style={{ alignSelf: 'flex-end' }}>{asset.org.title}</Chip>
+        <Image className="thumb" thumbnail={asset.Thumb || missingAssetThumb}>
+          <Chip fontSize="0.75rem" style={{ alignSelf: 'flex-end' }}>{asset.Org.Title}</Chip>
           <Chip fontSize="0.75rem" style={{ alignSelf: 'flex-end', marginTop: 5 }}>
             <ActivityIcon size={15} />
-            {asset.usersNow}
+            {asset.UsersNow}
             <UserIcon size={15} />
-            {asset.usersDay}
+            {asset.UsersDay}
             <UsersIcon size={15} />
-            {asset.usersMonth}
+            {asset.UsersMonth}
             <CalendarIcon size={15} />
-            {asset.usersTotal}
+            {asset.UsersTotal}
           </Chip>
         </Image>
-        <Title>{asset.title}</Title>
+        <Title>{asset.Title}</Title>
         <Date>{pkgString} - Updated {dateString}</Date>
-        <Summary className="summary">{asset.summary}</Summary>
+        <Summary className="summary">{asset.Summary}</Summary>
       </Card>
       {/* <Chart width={307} height={50} /> */}
     </Root>

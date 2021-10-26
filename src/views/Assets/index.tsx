@@ -169,7 +169,7 @@ function Assets() {
         }
       } catch (error) {
         console.error(error);
-        setAssetError(error);
+        setAssetError(error as Error);
       }
     }
 
@@ -217,7 +217,7 @@ function Assets() {
         </SectionHeader>
         <div className="packages">
           {assets ? assets.map(
-            (asset, index) => <Card key={`${asset.ident}${index * 2}`} asset={asset} />,
+            (asset, index) => <Card key={`${asset.Ident}${index * 2}`} asset={asset} />,
           ) : <Loader paddingBottom />}
         </div>
       </Section>

@@ -33,6 +33,13 @@ const ListItem = styled.li`
 
 const changelog: ChangelogItem[] = [
   {
+    version: 'v1.6.1',
+    subtitle: 'Modes & maps fix',
+    changes: [
+      'Fixed TypeScript API interfaces to match updated/capitalized style',
+    ],
+  },
+  {
     version: 'v1.6',
     subtitle: 'Revamped asset browser, removed menu route & more',
     changes: [
