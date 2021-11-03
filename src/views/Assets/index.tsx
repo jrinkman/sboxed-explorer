@@ -160,7 +160,7 @@ function Assets() {
         if (assets) setAssets(null);
 
         // Load the API data
-        const url = `/asset/list?type=${assetType}&order=${sortOrder}${search.length > 0 ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`;
+        const url = `/sandbox-asset-list?type=${assetType}&order=${sortOrder}${search.length > 0 ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`;
         const { data } = await axios.get<Asset[]>(url);
 
         // Update the state

@@ -250,7 +250,7 @@ function Info() {
         if (assetInfo) setAssetInfo(null);
 
         // Load the data from the API
-        const { data } = (await axios.get<AssetInfo>(`/asset/get?id=${id}`));
+        const { data } = (await axios.get<AssetInfo>(`/sandbox-asset?id=${id}`));
 
         // Update the state
         if (!cancelPromise) {

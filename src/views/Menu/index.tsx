@@ -56,8 +56,8 @@ function Menu() {
       try {
         // Retireve the API data
         const [mostPopular, newestReleases] = await Promise.all([
-          axios.get<Asset[]>('/asset/list?order=popular'),
-          axios.get<Asset[]>('/asset/list?order=newest'),
+          axios.get<Asset[]>('/sandbox-asset-list?order=popular'),
+          axios.get<Asset[]>('/sandbox-asset-list?order=newest'),
         ]);
 
         // Update the state
@@ -75,7 +75,7 @@ function Menu() {
         ]);
       } catch (error) {
         console.error(error);
-        setMenuError(error);
+        setMenuError(error as Error);
       }
     }
 
