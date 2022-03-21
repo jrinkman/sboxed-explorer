@@ -22,8 +22,7 @@ const Section = styled.section`
   flex-direction: column;
 `;
 
-const List = styled.ul`
-`;
+const List = styled.ul``;
 
 const ListItem = styled.li`
   color: white;
@@ -32,6 +31,11 @@ const ListItem = styled.li`
 `;
 
 const changelog: ChangelogItem[] = [
+  {
+    version: 'v1.6.2',
+    subtitle: 'APT changes fix',
+    changes: ['Fixed various issues related to changes within the API'],
+  },
   {
     version: 'v1.6.1',
     subtitle: 'Modes & maps fix',
@@ -44,22 +48,20 @@ const changelog: ChangelogItem[] = [
     subtitle: 'Revamped asset browser, removed menu route & more',
     changes: [
       'This project was deprecated for a short period of time following s&box API changes. It was thought that a Steam auth ticket was needed to authenticate requests, however it turns out we just needed to add a new version header to each request.',
-      'So what\'s new?',
+      "So what's new?",
       'Changed the header style of the asset browser pages',
       'Input boxes now actually search via the API, rather than just filtering results',
       'Added category select dropdown to asset browser pages',
       'Added new sidemenu to the asset info page, includes player counts & tags for gamemodes',
       'Restyled buttons on the asset info page and moved them to the side menu',
-      'Removed the \'menu\' route, as the /menu endpoint no longer exists',
+      "Removed the 'menu' route, as the /menu endpoint no longer exists",
       'Updated the view changelog button on the home page to reference the latest API explorer version',
     ],
   },
   {
     version: 'v1.5.4',
     subtitle: 'Modes & maps fix',
-    changes: [
-      'The /assets/find endpoint was removed - error fixed',
-    ],
+    changes: ['The /assets/find endpoint was removed - error fixed'],
   },
   {
     version: 'v1.5.3',
@@ -73,7 +75,7 @@ const changelog: ChangelogItem[] = [
     version: 'v1.5.2',
     subtitle: 'Updated asset cards',
     changes: [
-      'Asset cards & asset info pages now display the \'usersNow\', \'usersMonth\' and \'usersTotal\' properties.',
+      "Asset cards & asset info pages now display the 'usersNow', 'usersMonth' and 'usersTotal' properties.",
     ],
   },
   {
@@ -86,11 +88,11 @@ const changelog: ChangelogItem[] = [
   },
   {
     version: 'v1.5',
-    subtitle: 'Searching, scott\'s map viewer & more',
+    subtitle: "Searching, scott's map viewer & more",
     changes: [
       'You can now filter assets by search within the menu, modes & maps pages',
-      'On map asset info pages, a \'scott\'s map viewer\' button is now visible',
-      'Removed the disabled \'open in s&box\' button from asset info pages',
+      "On map asset info pages, a 'scott's map viewer' button is now visible",
+      "Removed the disabled 'open in s&box' button from asset info pages",
       'Asset info descriptions now display correctly',
       'Assets now download correctly',
       'Download types & sizes are now displayed on the Asset info page',
@@ -122,8 +124,8 @@ const changelog: ChangelogItem[] = [
     subtitle: 'Open-source',
     changes: [
       'The project is now open-source. Yay!',
-      'Added a \'View on GitHub\' button to the home page',
-      'Site navbar is now in it\'s own component',
+      "Added a 'View on GitHub' button to the home page",
+      "Site navbar is now in it's own component",
     ],
   },
   {
@@ -133,7 +135,7 @@ const changelog: ChangelogItem[] = [
       'Added my profile image to the home page credit',
       'Changed credit font size',
       'Changed home page buttons positioning & opacity',
-      'Switched \'open s&box\' button to \'go to menu\' button',
+      "Switched 'open s&box' button to 'go to menu' button",
     ],
   },
   {
@@ -158,9 +160,9 @@ const changelog: ChangelogItem[] = [
     changes: [
       'Added home page & moved menu endpoint to /menu',
       'Alphabetical & recent sorting',
-      'Added an \'open s&box\' button to the asset info & home pages. Hopefully, this will become a \'open IN s&box\' button when gamemodes / maps can be opened on startup using the Steam browser protocol.',
+      "Added an 'open s&box' button to the asset info & home pages. Hopefully, this will become a 'open IN s&box' button when gamemodes / maps can be opened on startup using the Steam browser protocol.",
       'Updated icons to match the official one',
-      'Renamed \'gamemodes\' to \'modes\' in the navbar',
+      "Renamed 'gamemodes' to 'modes' in the navbar",
       'Better implementation of reusable components',
       'Fixed capitalization of s&box',
     ],
@@ -175,17 +177,15 @@ const changelog: ChangelogItem[] = [
   {
     version: 'v1.2.1',
     subtitle: 'AssetInfo crash hotfix',
-    changes: [
-      'Fixed crash with AssetInfo not loading correctly',
-    ],
+    changes: ['Fixed crash with AssetInfo not loading correctly'],
   },
   {
     version: 'v1.2',
     subtitle: 'Changelog & usability update',
     changes: [
-      'Added this changelog you\'re reading right now!',
+      "Added this changelog you're reading right now!",
       'Fixed asset map / gamemode information page padding',
-      'Made the \'go back\' button more reliable',
+      "Made the 'go back' button more reliable",
       'Improved the way axios promise return types are handled',
       'In-progress promises on the /asset route are now cancelled upon navigation',
     ],
@@ -197,7 +197,7 @@ const changelog: ChangelogItem[] = [
       'Refactored proxy to be more efficient',
       'Refactored frontend to properly use the s&box APIs',
       'Can now view maps & click on them to see more info',
-      'Maps & gamemodes data are now treated as generic \'assets\'',
+      "Maps & gamemodes data are now treated as generic 'assets'",
       'Added navbar links & changed navigation slugs',
     ],
   },
@@ -219,7 +219,9 @@ function Changelog() {
         <Section key={log.version}>
           <Heading title={log.version} subtitle={log.subtitle} />
           <List>
-            {log.changes.map((change) => <ListItem key={change}>{change}</ListItem>)}
+            {log.changes.map((change) => (
+              <ListItem key={change}>{change}</ListItem>
+            ))}
           </List>
         </Section>
       ))}
