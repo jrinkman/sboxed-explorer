@@ -1,4 +1,4 @@
-# DEPRECATED: This project has beem deprecated until further notice.
+# DEPRECATED: This project has been deprecated until further notice.
 
 # sboxed: API Explorer
 
