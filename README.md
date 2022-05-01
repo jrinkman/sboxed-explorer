@@ -1,3 +1,5 @@
+# DEPRECATED: This project has beem deprecated until further notice.
+
 # sboxed: API Explorer
 
 > A web interface for S&box's API
