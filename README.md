@@ -4,8 +4,6 @@
 
 > A web interface for S&box's API
 
-[Live website](https://explorer.sboxed.com/)
-
 # Proxy server
 As, by default, the s&box API does not provide CORS support, i've also created a light-weight Cloudflare-based proxy:
 
